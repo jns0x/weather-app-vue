@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h2>Search for city</h2>
+    <h2>Watching list</h2>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Home"
+  name: "WatchingList"
 };
 </script>
  <style lang="scss">

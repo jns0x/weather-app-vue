@@ -9,7 +9,14 @@
           <router-link to="/">Home</router-link>
         </li>
         <li class="menu--list-item">
-          <router-link to="/bar">404</router-link>
+          <router-link to="/watching">Watching</router-link>
+        </li>
+        <li class="menu--list-item">
+          <router-link to="/fixed-watch-list">Cities in Poland</router-link>
+        </li>
+
+        <li class="menu--list-item">
+          <router-link to="/not-exist">404</router-link>
         </li>
       </ul>
     </nav>
@@ -37,28 +44,31 @@ export default {
   height: 5rem;
   display: flex;
   justify-content: flex-start;
-
   .menu-opener {
     cursor: pointer;
     height: 3.7rem;
-    width: 4rem;
+    min-width: 4rem;
     transition: 250ms all;
     user-select: none;
     top: 0;
+    z-index: 5;
     * {
       box-sizing: border-box;
     }
     &:hover {
-      background: get-color(1);
+      background: get-color(4);
     }
     &.active {
-      background: get-color(1);
+      background: get-color(2);
+      &:hover {
+        background: get-color(4);
+      }
     }
     .menu-opener-inner {
       background: #fff;
       height: 0.5rem;
-      margin-left: 0.5rem;
-      margin-top: 1.5rem;
+      margin-left: 0.7rem;
+      margin-top: 1.6rem;
       width: 2.5rem;
       transition: 250ms all;
       &.active {
@@ -92,15 +102,18 @@ export default {
   }
   .menu {
     display: flex;
-    width: 100%;
     max-height: 3.7rem;
     position: absolute;
-    left: -20vw;
+    height: 100%;
     width: 0%;
+    transition: 250ms all;
+    left: -5rem;
+    @include font-size(1);
     &.active {
       position: inherit;
       width: 100%;
-      transition: 250ms all ease-in-out;
+      height: auto;
+      transition: 250ms all;
     }
     .menu--list {
       list-style: none;
@@ -110,10 +123,14 @@ export default {
       margin: 0;
       .menu--list-item {
         padding: 0.2rem;
-        background: get-color(1);
+        background: get-color(2);
         margin: 0;
         width: 100%;
         @extend %center-all;
+        &:hover {
+          background: get-color(3);
+          transition: 250ms all;
+        }
         a {
           color: white;
           text-decoration: white;
@@ -121,13 +138,24 @@ export default {
           height: 100%;
           vertical-align: middle;
           @extend %center-all;
-          &:hover {
-            background: get-color(3);
-            transition: 250ms all;
-          }
+          @include font-size(1.5);
         }
       }
     }
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    position: relative;
+    width: 0%;
+  }
+  5% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+    position: inherit;
   }
 }
 </style>
