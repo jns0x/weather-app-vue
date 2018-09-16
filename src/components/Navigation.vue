@@ -106,14 +106,14 @@ export default {
     position: absolute;
     height: 100%;
     width: 0%;
-    transition: 250ms all;
+    transition: 350ms all;
     left: -5rem;
     @include font-size(1);
     &.active {
       position: inherit;
       width: 100%;
       height: auto;
-      transition: 250ms all;
+      transition: 350ms all;
     }
     .menu--list {
       list-style: none;

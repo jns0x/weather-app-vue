@@ -1,12 +1,16 @@
 <template>
   <div>
-    <h2>Search for city</h2>
+    <SearchBar/>
   </div>
 </template>
 
 <script>
+import SearchBar from "../components/SearchBar";
 export default {
-  name: "Home"
+  name: "Home",
+  components: {
+    SearchBar
+  }
 };
 </script>
  <style lang="scss">
