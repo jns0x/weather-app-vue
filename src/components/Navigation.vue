@@ -18,13 +18,12 @@
 <script>
 export default {
   name: "Navigation",
-  menu: {
-    menuToggle: false
+  data() {
+    return { menuToggle: false };
   },
   methods: {
     menuOpen() {
       this.menuToggle = !this.menuToggle;
-      console.log(this.menuToggle);
     }
   }
 };
