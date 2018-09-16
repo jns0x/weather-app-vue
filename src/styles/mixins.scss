@@ -1,0 +1,7 @@
+@mixin gradient-bg($direction, $color-list) {
+  background-image: linear-gradient($direction, map-values($color-list));
+}
+
+@function get-color($key) {
+  @return map-get($colors-palette, $key);
+}
