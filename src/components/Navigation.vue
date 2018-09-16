@@ -18,7 +18,7 @@
 <script>
 export default {
   name: "Navigation",
-  props: {
+  menu: {
     menuToggle: false
   },
   methods: {
