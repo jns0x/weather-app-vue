@@ -6,17 +6,17 @@
     <nav class="menu" v-bind:class="{'active': menuToggle}">
       <ul class="menu--list">
         <li class="menu--list-item">
-          <router-link to="/">Home</router-link>
+          <router-link to="/" v-bind:class="{'active': menuToggle}">Home</router-link>
         </li>
         <li class="menu--list-item">
-          <router-link to="/watching">Watching</router-link>
+          <router-link to="/watching" v-bind:class="{'active': menuToggle}">Watching</router-link>
         </li>
         <li class="menu--list-item">
-          <router-link to="/fixed-watch-list">Cities in Poland</router-link>
+          <router-link to="/fixed-watch-list" v-bind:class="{'active': menuToggle}">Cities in Poland</router-link>
         </li>
 
         <li class="menu--list-item">
-          <router-link to="/not-exist">404</router-link>
+          <router-link to="/not-exist" v-bind:class="{'active': menuToggle}">404</router-link>
         </li>
       </ul>
     </nav>
@@ -130,15 +130,31 @@ export default {
         &:hover {
           background: get-color(3);
           transition: 250ms all;
+
+          // a {
+
+          //   @include font-size(1.5);
+          //   transition: 250ms all;
+          // }
         }
         a {
           color: white;
+          text-shadow: 2px 3px 0px rgba(150, 150, 150, 1);
           text-decoration: white;
           width: 100%;
           height: 100%;
           vertical-align: middle;
           @extend %center-all;
-          @include font-size(1.5);
+          @include font-size(0.5);
+          transition: 250ms all;
+          &.active {
+            @include font-size(1.3);
+            transition: 250ms all;
+          }
+          &:hover {
+            @include font-size(1.4);
+            transition: 100ms all;
+          }
         }
       }
     }

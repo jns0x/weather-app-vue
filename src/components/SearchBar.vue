@@ -1,17 +1,40 @@
 <template>
   <div>
     <h2>Search for city</h2>
-    <vue-google-autocomplete id="map" classname="form-control" placeholder="Start typing" v-on:placechanged="getAddressData">
+    <vue-google-autocomplete ref="address" id="map" types="(cities)" classname="form-control" placeholder="Start typing" v-on:placechanged="updateData" v-on:submit.prevent="getAddressData" v-on:inputChange="onChange">
     </vue-google-autocomplete>
   </div>
 </template>
 
 <script>
 import VueGoogleAutocomplete from "vue-google-autocomplete";
+// import store from "../store";
 export default {
   name: "Home",
   components: {
     VueGoogleAutocomplete
+  },
+  data() {
+    return {
+      address: ""
+    };
+  },
+  mounted() {
+    this.$refs.address.focus();
+  },
+  methods: {
+    onChange() {
+      // console.log(this);
+    },
+    getAddressData() {
+      console.log(this.address);
+      this.$store.dispatch("getAddressData", this.address);
+      // this.address = "";
+    },
+    updateData(addressData, placeResultData, id) {
+      this.address = addressData.name;
+      this.getAddressData();
+    }
   }
 };
 </script>
