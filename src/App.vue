@@ -48,6 +48,7 @@ html {
   color: white;
   height: 100vh;
   max-height: 100vh;
+  max-width: 100vw;
   overflow: hidden;
   @include gradient-bg(to right top, $colors-palette);
 
