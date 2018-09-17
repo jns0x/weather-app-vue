@@ -5,19 +5,26 @@
     </nav>
     <nav class="menu" v-bind:class="{'active': menuToggle}">
       <ul class="menu--list">
-        <li class="menu--list-item">
-          <router-link to="/" v-bind:class="{'active': menuToggle}">Home</router-link>
-        </li>
-        <li class="menu--list-item">
-          <router-link to="/watching" v-bind:class="{'active': menuToggle}">Watching</router-link>
-        </li>
-        <li class="menu--list-item">
-          <router-link to="/fixed-watch-list" v-bind:class="{'active': menuToggle}">Cities in Poland</router-link>
-        </li>
-
-        <li class="menu--list-item">
-          <router-link to="/not-exist" v-bind:class="{'active': menuToggle}">404</router-link>
-        </li>
+        <router-link class="menu--list-item" to="/" v-bind:class="{'active': menuToggle}">
+          <li>
+            Home
+          </li>
+        </router-link>
+        <router-link class="menu--list-item" to="/watching" v-bind:class="{'active': menuToggle}">
+          <li>
+            Watching
+          </li>
+        </router-link>
+        <router-link class="menu--list-item" to="/fixed-watch-list" v-bind:class="{'active': menuToggle}">
+          <li>
+            Cities in Poland
+          </li>
+        </router-link>
+        <router-link class="menu--list-item" to="/not-exist" v-bind:class="{'active': menuToggle}">
+          <li>
+            404
+          </li>
+        </router-link>
       </ul>
     </nav>
   </div>
@@ -41,7 +48,7 @@ export default {
 
 .nav-container {
   width: 100%;
-  height: 5rem;
+  height: 4rem;
   display: flex;
   justify-content: flex-start;
   .menu-opener {
@@ -59,7 +66,7 @@ export default {
       background: get-color(4);
     }
     &.active {
-      background: get-color(2);
+      // background: get-color(2);
       &:hover {
         background: get-color(4);
       }
@@ -108,12 +115,20 @@ export default {
     width: 0%;
     transition: 350ms all;
     left: -5rem;
+    z-index: 2;
     @include font-size(1);
+    @include mobile {
+      max-height: unset;
+    }
     &.active {
       position: inherit;
       width: 100%;
       height: auto;
       transition: 350ms all;
+      @include mobile {
+        position: absolute;
+        left: unset;
+      }
     }
     .menu--list {
       list-style: none;
@@ -121,15 +136,36 @@ export default {
       width: 100%;
       padding: 0;
       margin: 0;
+      @include mobile {
+        flex-direction: column;
+      }
       .menu--list-item {
-        padding: 0.2rem;
         background: get-color(2);
         margin: 0;
         width: 100%;
+        color: white;
+        text-shadow: 2px 3px 0px rgba(150, 150, 150, 1);
+        text-decoration: none;
+        @include font-size(0.1);
         @extend %center-all;
+        @include mobile {
+          line-height: 2.2rem;
+        }
+        &.active {
+          @include font-size(1.3);
+          transition: 250ms all;
+          @include mobile {
+            border-top: 1px solid get-color(3);
+            &:first-child {
+              border-top: unset;
+            }
+          }
+        }
+
         &:hover {
           background: get-color(3);
           transition: 250ms all;
+          @include font-size(1.4);
 
           // a {
 
@@ -138,24 +174,14 @@ export default {
           // }
         }
         a {
-          color: white;
-          text-shadow: 2px 3px 0px rgba(150, 150, 150, 1);
-          text-decoration: white;
-          width: 100%;
-          height: 100%;
-          vertical-align: middle;
-          @extend %center-all;
-          @include font-size(0.5);
-          transition: 250ms all;
-          &.active {
-            @include font-size(1.3);
-            transition: 250ms all;
-          }
-          &:hover {
-            @include font-size(1.4);
-            transition: 100ms all;
-          }
+          text-decoration: none;
         }
+        // a {
+        //   color: white;
+        //   @extend %center-all;
+        //   @include font-size(0.5);
+        //   transition: 250ms all;
+        // }
       }
     }
   }
