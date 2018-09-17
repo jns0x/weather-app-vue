@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import FourOhFour from "./pages/404";
 import WatchingList from "./pages/WatchingList";
 import FixedWatchList from "./pages/FixedWatchList";
-
+import store from "./store";
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -21,6 +21,7 @@ const router = new VueRouter({
 });
 
 new Vue({
+  store,
   router,
   render: h => h(App)
 }).$mount("#app");

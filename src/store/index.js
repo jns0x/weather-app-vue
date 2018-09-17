@@ -2,19 +2,28 @@ import Vue from "vue";
 import Vuex from "vuex";
 import createLogger from "vuex/dist/logger";
 import axios from "axios";
-import { getAddressDataAPI, metric } from "../config";
+import { getAddressDataAPI, metric, apiKey } from "../config";
 
 Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
-    menuToggle: false
+    menuToggle: false,
+    address: ""
   },
-  mutations: {},
+  mutations: {
+    setAddressData(state, payload) {
+      state.currentSearch = payload.currentSearchWeather;
+    }
+  },
   actions: {
     async getAddressData({ commit }, city) {
       const payload = await axios
-        .get(`getAddressDataAPI${city}${metric}`)
-        .then(data => console.log(data));
+        .get(`${getAddressDataAPI}${city}${metric}${apiKey}`)
+        .then(response => response.data);
+      commit({
+        type: "setAddressData",
+        currentSearchWeather: payload
+      });
     }
   },
   plugins: [createLogger()]

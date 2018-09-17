@@ -1,18 +1,32 @@
 <template>
   <div>
     <SearchBar/>
-    <WeatherBox></WeatherBox>
+    <template v-if="weatherSearch.name">
+      <WeatherBox :weather="weatherSearch"></WeatherBox>
+    </template>
   </div>
 </template>
 
 <script>
 import SearchBar from "../components/SearchBar";
-import WaetherBox from "../components/WeatherBox";
+import WeatherBox from "../components/WeatherBox";
+import store from "../store";
 export default {
   name: "Home",
   components: {
     SearchBar,
-    WaetherBox
+    WeatherBox
+  },
+  data() {
+    return {
+      weatherSearch: ""
+    };
+  },
+  computed: {
+    getWeather() {
+      this.weatherSearch = this.$store.state.currentSearch;
+      return this.$store.state.currentSearch;
+    }
   }
 };
 </script>

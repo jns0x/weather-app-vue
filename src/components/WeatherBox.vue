@@ -1,8 +1,8 @@
 <template>
   <div class="weather-box">
-    <h5>Title</h5>
+    <h5>{{ weather.name }}</h5>
     <p class="weather-desc">Clouds and windy</p>
-    <h3>18
+    <h3>{{ weather.main.temp }}
       <span>o
       </span>
     </h3>
@@ -12,7 +12,15 @@
 
 <script>
 export default {
-  name: "WeatherBox"
+  name: "WeatherBox",
+  props: {
+    weather: {
+      type: Object
+    }
+  },
+  created() {
+    console.log(this.props);
+  }
 };
 </script>
  <style lang="scss">
