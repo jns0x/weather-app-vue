@@ -47,6 +47,9 @@ h2 {
   padding: 0.5rem;
   outline: none;
   width: 50%;
+  @include mobile {
+    width: 60%;
+  }
 }
 .pac-container {
   top: 181px;
@@ -56,6 +59,10 @@ h2 {
   border-radius: 1rem !important;
   border: none !important;
   background: white;
+  @include mobile {
+    width: 63% !important;
+    left: calc(20%);
+  }
   .pac-item {
     // &:nth-last-child {
     //   border-top-left-radius: 2rem;
