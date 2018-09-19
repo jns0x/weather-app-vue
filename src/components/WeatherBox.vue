@@ -13,7 +13,7 @@
       <p class="weather-desc">pressure: {{ weather.main.pressure }} hpa</p>
       <p class="weather-desc">wind: {{ weather.wind.speed }} km/h</p>
     </div>
-    <round-button/>
+    <round-button @addToWatchList="addToWatchList" />
   </div>
 </template>
 
@@ -31,6 +31,13 @@ export default {
   },
   created() {
     console.log(this.weather);
+  },
+  methods: {
+    addToWatchList() {
+      const idNum = this.weather.id;
+      // console.log(idNum);
+      this.$store.dispatch("addToWatchList", idNum);
+    }
   }
 };
 </script>

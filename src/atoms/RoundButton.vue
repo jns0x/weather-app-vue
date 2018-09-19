@@ -1,5 +1,5 @@
 <template>
-  <div class="btn" v-on:click="changeClass" v-bind:class="{'toggled': btnToggle, 'unToggled': btnRemove}">
+  <div class="btn" @click="$emit('addToWatchList')" v-on:click="changeClass" v-bind:class="{'toggled': btnToggle, 'unToggled': btnRemove}">
     <div class="btn__cross" v-bind:class="{'toggled': btnToggle}"></div>
 
   </div>
@@ -15,9 +15,10 @@ export default {
     };
   },
   methods: {
-    handleClick() {},
+    handleClick() {
+      this.$emit("addToWatchList");
+    },
     changeClass() {
-      console.log("test");
       this.btnToggle = !this.btnToggle;
       this.btnRemove = !this.btnRemove;
     }

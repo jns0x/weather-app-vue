@@ -8,11 +8,15 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     menuToggle: false,
-    currentSearch: ""
+    currentSearch: "",
+    watchList: []
   },
   mutations: {
     setAddressData(state, payload) {
       state.currentSearch = payload.currentSearchWeather;
+    },
+    addToWatchList(state, payload) {
+      state.watchList.push(payload.addID);
     }
   },
   actions: {
@@ -23,6 +27,12 @@ export default new Vuex.Store({
       commit({
         type: "setAddressData",
         currentSearchWeather: payload
+      });
+    },
+    addToWatchList(store, payload) {
+      store.commit({
+        type: "addToWatchList",
+        addID: payload
       });
     }
   },
