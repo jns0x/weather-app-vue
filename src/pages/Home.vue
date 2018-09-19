@@ -1,8 +1,8 @@
 <template>
   <div>
-    <SearchBar/>
-    <template v-if="weatherSearch.name">
-      <WeatherBox :weather="weatherSearch"></WeatherBox>
+    <SearchBar />
+    <template v-if="getWeather">
+      <WeatherBox :weather="getWeather"></WeatherBox>
     </template>
   </div>
 </template>
@@ -11,21 +11,21 @@
 import SearchBar from "../components/SearchBar";
 import WeatherBox from "../components/WeatherBox";
 import store from "../store";
+import uuidv4 from "uuid";
 export default {
   name: "Home",
   components: {
     SearchBar,
     WeatherBox
   },
-  data() {
-    return {
-      weatherSearch: ""
-    };
-  },
   computed: {
     getWeather() {
-      this.weatherSearch = this.$store.state.currentSearch;
       return this.$store.state.currentSearch;
+    }
+  },
+  methods: {
+    createID() {
+      return uuidv4();
     }
   }
 };

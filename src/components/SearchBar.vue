@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Search for city</h2>
-    <vue-google-autocomplete ref="address" id="map" types="(cities)" classname="form-control" placeholder="Start typing" v-on:placechanged="updateData" v-on:submit.prevent="getAddressData" v-on:inputChange="onChange">
+    <vue-google-autocomplete id="map" types="(cities)" classname="form-control" placeholder="Type city name" v-on:placechanged="updateData">
     </vue-google-autocomplete>
   </div>
 </template>
@@ -14,23 +14,12 @@ export default {
   components: {
     VueGoogleAutocomplete
   },
-  data() {
-    return {
-      address: store.state
-    };
-  },
-  mounted() {
-    this.$refs.address.focus();
-  },
   methods: {
-    onChange() {},
-    getAddressData() {
-      this.$store.dispatch("getAddressData", this.address);
+    getAddressData(city) {
+      this.$store.dispatch("getAddressData", city);
     },
     updateData(addressData, placeResultData, id) {
-      this.address = placeResultData.name;
-      console.log(this.address);
-      this.getAddressData();
+      this.getAddressData(placeResultData.name);
     }
   }
 };

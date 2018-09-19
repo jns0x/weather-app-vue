@@ -8,7 +8,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     menuToggle: false,
-    address: ""
+    currentSearch: ""
   },
   mutations: {
     setAddressData(state, payload) {

@@ -7,12 +7,14 @@
     </transition>
   </div>
 </template>
-// enter-active-class="animated fadeOutRight" leave-active-class="animated fadeOutLeft"
 <script>
+// enter-active-class="animated fadeOutRight" leave-active-class="animated fadeOutLeft"
+
 // import HelloWorld from "./components/HelloWorld.vue";
 import Navigation from "./components/Navigation";
 import "normalize.css";
 import "animate.css";
+
 export default {
   components: { Navigation }
   // data() {
