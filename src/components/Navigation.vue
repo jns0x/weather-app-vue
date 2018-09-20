@@ -10,6 +10,11 @@
             Home
           </li>
         </router-link>
+        <router-link class="menu--list-item" to="/details" v-bind:class="{'active': menuToggle}">
+          <li>
+            Details
+          </li>
+        </router-link>
         <router-link class="menu--list-item" to="/watching" v-bind:class="{'active': menuToggle}">
           <li>
             Watching
@@ -146,11 +151,13 @@ export default {
         color: white;
         text-shadow: 2px 3px 0px rgba(150, 150, 150, 1);
         text-decoration: none;
+        cursor: pointer;
         @include font-size(0.1);
         @extend %center-all;
         @include mobile {
           line-height: 2.2rem;
         }
+
         &.active {
           @include font-size(1.3);
           transition: 250ms all;
@@ -159,6 +166,10 @@ export default {
             &:first-child {
               border-top: unset;
             }
+          }
+          &:active {
+            @include font-size(1);
+            transition: 250ms all;
           }
         }
 

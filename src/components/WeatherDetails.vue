@@ -1,21 +1,18 @@
 <template>
   <div class="weather-box__wrapper">
     <div class="weather-box">
-      <div class="weather__city">{{ weather.name }}</div>
+      <div class="weather__city">{{ weather.city.name }}</div>
       <div class="group">
-        <div class="weather__temp">{{ weather.main.temp }}
+        <div class="weather__temp">{{ weather.list[0].main.temp }}
           <sup class="unit">o</sup>
         </div>
-        <img class="icon" v-bind:src="`http://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
+        <img class="icon" v-bind:src="`http://openweathermap.org/img/w/${weather.list[0].weather[0].icon}.png`">
       </div>
-      <p class="weather-desc">{{ weather.weather[0].description }}</p>
-      <p class="weather-desc">humidity: {{ weather.main.humidity }}</p>
-      <p class="weather-desc">pressure: {{ weather.main.pressure }} hpa</p>
-      <p class="weather-desc">wind: {{ weather.wind.speed }} km/h</p>
+      <p class="weather-desc">{{ weather.list[0].weather[0].description }}</p>
+      <p class="weather-desc">humidity: {{ weather.list[0].main.humidity }}</p>
+      <p class="weather-desc">pressure: {{ weather.list[0].main.pressure }} hpa</p>
+      <p class="weather-desc">wind: {{ weather.list[0].wind.speed }} km/h</p>
     </div>
-    <round-button @addToWatchList="addToWatchList" />
-    <default-button @moreDetails="moreDetails" :label="'Show details'" />
-    <default-button @moreDetails="moreDetails" :label="'Add to watchlist'" />
   </div>
 </template>
 
@@ -23,7 +20,7 @@
 import RoundButton from "../atoms/RoundButton";
 import DefaultButton from "../atoms/DefaultButton";
 export default {
-  name: "WeatherBox",
+  name: "WeatherDetails",
   components: {
     RoundButton,
     DefaultButton
@@ -40,11 +37,6 @@ export default {
     addToWatchList() {
       const idNum = this.weather.id;
       this.$store.dispatch("addToWatchList", idNum);
-    },
-    moreDetails() {
-      console.log("test");
-      const idNum = this.weather.id;
-      this.$store.dispatch("getForecast", idNum);
     }
   }
 };

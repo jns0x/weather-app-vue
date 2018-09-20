@@ -4,6 +4,8 @@ export const apiKey = "&APPID=8496070a6ed3bd27bd80c6c4595509b1";
 export const metric = "&units=metric";
 export const imperial = "&units=imperial";
 export const htmlMode = "&mode=html";
+export const foreactFiveDays =
+  "https:/api.openweathermap.org/data/2.5/forecast?id="; //Call 5 day / 3 hour forecast data
 
 export const citiesArr = [
   {
