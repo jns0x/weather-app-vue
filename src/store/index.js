@@ -7,14 +7,22 @@ import { getAddressDataAPI, metric, apiKey, foreactFiveDays } from "../config";
 Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
+    loading: false,
+    itemErrored: false,
     menuToggle: false,
     currentSearch: "",
     foreactFiveDays: "",
     watchList: []
   },
   mutations: {
+    itemsIsLoading(state, bool) {
+      state.loading = bool;
+    },
+    itemHasErrored(state, bool) {
+      state.itemErrored = bool;
+    },
     setAddressData(state, payload) {
-      state.currentSearch = payload.currentSearchWeather;
+      state.currentSearch = payload;
     },
     forecastForFiveDays(state, payload) {
       state.foreactFiveDays = payload.foreactFive;
@@ -31,14 +39,24 @@ export default new Vuex.Store({
   },
   actions: {
     async getAddressData({ commit }, city) {
-      const payload = await axios
+      commit("itemsIsLoading", true);
+      axios
         .get(`${getAddressDataAPI}${city}${metric}${apiKey}`)
+        .then(response => {
+          if (response.statusText !== "OK") {
+            throw Error(response.statusText);
+          }
+          commit("itemsIsLoading", false);
+          return response;
+        })
         // .then(response => console.log(response))
-        .then(response => response.data);
-      commit({
-        type: "setAddressData",
-        currentSearchWeather: payload
-      });
+        .then(response => {
+          commit("setAddressData", response.data);
+        })
+        .catch(() => {
+          commit("itemsIsLoading", false);
+          commit("itemHasErrored", true);
+        });
     },
     async getForecast({ commit }, cityID) {
       const payload = await axios

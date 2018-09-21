@@ -16,17 +16,20 @@
     <round-button @addToWatchList="addToWatchList" />
     <default-button @moreDetails="moreDetails" :label="'Show details'" />
     <default-button @moreDetails="moreDetails" :label="'Add to watchlist'" />
+    <DetailsPanel/>
   </div>
 </template>
 
 <script>
 import RoundButton from "../atoms/RoundButton";
 import DefaultButton from "../atoms/DefaultButton";
+import DetailsPanel from "./DetailsPanel";
 export default {
   name: "WeatherBox",
   components: {
     RoundButton,
-    DefaultButton
+    DefaultButton,
+    DetailsPanel
   },
   props: {
     weather: {
