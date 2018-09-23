@@ -8,6 +8,12 @@ export const forecastFiveDaysAPI =
   "https:/api.openweathermap.org/data/2.5/forecast?id="; //Call 5 day / 3 hour forecast data
 export const forecastTenDaysAPI =
   "https:/api.openweathermap.org/data/2.5/forecast/daily?id=";
+export const defaultHeaders = {
+  headers: {
+    Accept: "application/json",
+    "Content-Type": "application/json"
+  }
+};
 
 export const citiesArr = [
   {

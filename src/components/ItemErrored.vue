@@ -1,6 +1,6 @@
 <template>
   <div class="error-field">
-    Sorry, something went wrong, try again later :(
+    Ooops, something went wrong :(<br> try again later...
   </div>
 </template>
 <script>

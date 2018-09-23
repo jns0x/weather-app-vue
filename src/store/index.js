@@ -7,7 +7,8 @@ import {
   metric,
   apiKey,
   forecastFiveDaysAPI,
-  forecastTenDaysAPI
+  forecastTenDaysAPI,
+  defaultHeaders
 } from "../config";
 
 Vue.use(Vuex);
@@ -61,7 +62,7 @@ export default new Vuex.Store({
     async getOneDayData({ commit }, city) {
       commit("itemLoading", { homeLoading: true });
       axios
-        .get(`${oneDayCityDataAPI}${city}${metric}${apiKey}`)
+        .get(`${oneDayCityDataAPI}${city}${metric}${apiKey}`, defaultHeaders)
         .then(response => {
           if (response.statusText !== "OK") {
             throw Error(response.statusText);
