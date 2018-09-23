@@ -1,8 +1,10 @@
 <template>
   <div>
     <Loading v-if="loading1" />
+    <ItemErrored v-if="errored" />
     <!-- <template v-if="!loading"> -->
-    <div v-if="fiveDaysForecast">
+    <div v-if="fiveDaysForecast && !loading1 && !errored">
+      <ItemErrored v-if="errored" />
       <div class="details-wrapper">
         <div class="details__row-days">
           <div class="details__column" v-for="weather in fiveDaysForecast" :key="weather.dt">
@@ -13,13 +15,16 @@
             </div>
           </div>
         </div>
-        <Loading v-if="loading2" />
-        <div class="details__rows">
-          <div class="details__rows-row" v-for="weather in tenDaysForecast" :key="weather.dt*10">
-            <div class="details__rows-row-day">{{ getWeekDay(weather.dt) }}</div>
-            <img class="icon" v-bind:src="`http://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
-            <div class="details__column-temp">{{ Math.round(weather.temp.day *10)/10 }}
-              <sup>o</sup>
+        <Loading v-if="loading2" :className="'details'" />
+        <ItemErrored v-if="errored" />
+        <div v-if="tenDaysForecast && !loading2 && !errored">
+          <div class="details__rows">
+            <div class="details__rows-row" v-for="weather in tenDaysForecast" :key="weather.dt*10">
+              <div class="details__rows-row-day">{{ getWeekDay(weather.dt) }}</div>
+              <img class="icon" v-bind:src="`http://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
+              <div class="details__column-temp">{{ Math.round(weather.temp.day *10)/10 }}
+                <sup>o</sup>
+              </div>
             </div>
           </div>
         </div>
@@ -31,10 +36,12 @@
 <script>
 import Loading from "./Loading";
 import { convertUnixTimeToWeekDay } from "../helpers";
+import ItemErrored from "../components/ItemErrored";
 export default {
   name: "DetailsPanel",
   components: {
-    Loading
+    Loading,
+    ItemErrored
   },
   computed: {
     fiveDaysForecast() {
@@ -49,6 +56,10 @@ export default {
     },
     loading2() {
       return this.$store.state.loading.tenDaysForecastLoading;
+      // return true;
+    },
+    errored() {
+      return this.$store.state.itemErrored;
     }
   },
   methods: {
@@ -94,7 +105,7 @@ export default {
     flex-direction: column;
     width: 95vw;
     overflow-x: scroll;
-    height: 23vh;
+    height: 26vh;
     justify-content: flex-start;
     .details__rows-row {
       display: flex;

@@ -2,10 +2,11 @@
   <div>
     <SearchBar />
     <Loading v-if="loading" :className="'tall'" />
+    <ItemErrored v-if="errored" />
     <!-- <Loading :loading="loading"  :className="'tall'"/> -->
     <!-- <template :loading="loading">Loading...</template> -->
     <!-- <template v-if="!loading.homeLoading"> -->
-    <template v-if="getWeather">
+    <template v-if="getWeather && !errored && !loading">
 
       <WeatherBox :weather="getWeather"></WeatherBox>
     </template>
@@ -17,13 +18,14 @@
 import SearchBar from "../components/SearchBar";
 import WeatherBox from "../components/WeatherBox";
 import Loading from "../components/Loading";
-import uuidv4 from "uuid";
+import ItemErrored from "../components/ItemErrored";
 export default {
   name: "Home",
   components: {
     SearchBar,
     WeatherBox,
-    Loading
+    Loading,
+    ItemErrored
   },
   computed: {
     getWeather() {
@@ -31,6 +33,9 @@ export default {
     },
     loading() {
       return this.$store.state.loading.homeLoading;
+    },
+    errored() {
+      return this.$store.state.itemErrored;
     }
   },
   methods: {

@@ -35,6 +35,9 @@ export default {
   &.tall {
     height: 40vh;
   }
+  &.details {
+    height: 40vw;
+  }
 }
 // .loading-wrapper {
 //   width: 100%;
