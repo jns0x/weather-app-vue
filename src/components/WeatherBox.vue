@@ -9,14 +9,23 @@
         <img class="icon" v-bind:src="`http://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
       </div>
       <p class="weather-desc">{{ weather.weather[0].description }}</p>
-      <p class="weather-desc">humidity: {{ weather.main.humidity }}</p>
-      <p class="weather-desc">pressure: {{ weather.main.pressure }} hpa</p>
-      <p class="weather-desc">wind: {{ weather.wind.speed }} km/h</p>
+      <div class="weather-desc__wrapper">
+        <div class="weather-desc__rowOne">
+          <p class="weather-desc">humidity: {{ weather.main.humidity }}</p>
+          <p class="weather-desc">pressure: {{ weather.main.pressure }} hpa</p>
+          <p class="weather-desc">wind: {{ weather.wind.speed }} km/h</p>
+        </div>
+        <div class="weather-desc__rowTwo">
+          <p class="weather-desc">sunrise: {{ converTime(weather.sys.sunrise) }}</p>
+          <p class="weather-desc">sunset: {{ converTime(weather.sys.sunset) }}</p>
+          <p class="weather-desc">visibility: {{ weather.visibility }} m</p>
+        </div>
+      </div>
     </div>
-    <round-button @addToWatchList="addToWatchList" />
-    <default-button @moreDetails="moreDetails" :label="'Show details'" />
-    <default-button @moreDetails="moreDetails" :label="'Add to watchlist'" />
+    <!-- <round-button @addToWatchList="addToWatchList" /> -->
+    <!-- <default-button @moreDetails="moreDetails" :label="'Add to watchlist'" /> -->
     <DetailsPanel/>
+    <default-button @moreDetails="moreDetails" :label="'Show details'" />
   </div>
 </template>
 
@@ -24,6 +33,7 @@
 import RoundButton from "../atoms/RoundButton";
 import DefaultButton from "../atoms/DefaultButton";
 import DetailsPanel from "./DetailsPanel";
+import { convertUnixTime } from "../helpers";
 export default {
   name: "WeatherBox",
   components: {
@@ -31,13 +41,15 @@ export default {
     DefaultButton,
     DetailsPanel
   },
+  // mounted: {
+  //   mountedFn() {
+  //     console.log("cos");
+  //   }
+  // },
   props: {
     weather: {
       type: Object
     }
-  },
-  created() {
-    console.log(this.weather);
   },
   methods: {
     addToWatchList() {
@@ -45,9 +57,12 @@ export default {
       this.$store.dispatch("addToWatchList", idNum);
     },
     moreDetails() {
-      console.log("test");
       const idNum = this.weather.id;
-      this.$store.dispatch("getForecast", idNum);
+      this.$store.dispatch("getFiveDaysForecast", idNum);
+      this.$store.dispatch("getTenDaysForecast", idNum);
+    },
+    converTime(unixTime) {
+      return convertUnixTime(unixTime);
     }
   }
 };
@@ -62,7 +77,7 @@ export default {
   justify-content: center;
   align-items: center;
   .weather-box {
-    margin-top: 2rem;
+    margin-top: 0.5rem;
     // border: 1px solid white;
     width: 100%;
     height: auto;
@@ -87,6 +102,11 @@ export default {
         height: 80px;
       }
     }
+  }
+  .weather-desc__wrapper {
+    @extend %center-all;
+    text-align: left;
+    justify-content: space-around;
   }
 }
 </style>

@@ -16,7 +16,7 @@ export default {
   },
   methods: {
     getAddressData(city) {
-      this.$store.dispatch("getAddressData", city);
+      this.$store.dispatch("getOneDayData", city);
     },
     updateData(addressData, placeResultData, id) {
       this.getAddressData(placeResultData.name);

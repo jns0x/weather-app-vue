@@ -117,11 +117,11 @@ export default {
     max-height: 3.7rem;
     position: absolute;
     height: 100%;
-    width: 0%;
+    width: 20%;
     transition: 350ms all;
-    left: -5rem;
+    left: -7rem;
     z-index: 2;
-    @include font-size(1);
+    @include font-size(3);
     @include mobile {
       max-height: unset;
     }
@@ -152,7 +152,7 @@ export default {
         text-shadow: 2px 3px 0px rgba(150, 150, 150, 1);
         text-decoration: none;
         cursor: pointer;
-        @include font-size(0.1);
+        @include font-size(0.5);
         @extend %center-all;
         @include mobile {
           line-height: 2.2rem;

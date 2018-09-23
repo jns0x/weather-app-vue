@@ -2,30 +2,50 @@ import Vue from "vue";
 import Vuex from "vuex";
 import createLogger from "vuex/dist/logger";
 import axios from "axios";
-import { getAddressDataAPI, metric, apiKey, foreactFiveDays } from "../config";
+import {
+  oneDayCityDataAPI,
+  metric,
+  apiKey,
+  forecastFiveDaysAPI,
+  forecastTenDaysAPI
+} from "../config";
 
 Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
-    loading: false,
+    loading: {
+      homeLoading: false,
+      fivedayForecastLoading: false,
+      tenDaysForecastLoading: false
+    },
     itemErrored: false,
     menuToggle: false,
-    currentSearch: "",
-    foreactFiveDays: "",
+    oneDayForecastData: "",
+    fiveDaysForecastData: "",
+    forecastTenDays: "",
     watchList: []
   },
   mutations: {
-    itemsIsLoading(state, bool) {
-      state.loading = bool;
+    itemLoading(state, payload) {
+      state.loading = {
+        ...state.loading,
+        ...payload
+      };
     },
     itemHasErrored(state, bool) {
       state.itemErrored = bool;
     },
-    setAddressData(state, payload) {
-      state.currentSearch = payload;
+    setOneDayForecastData(state, payload) {
+      state.oneDayForecastData = payload;
     },
-    forecastForFiveDays(state, payload) {
-      state.foreactFiveDays = payload.foreactFive;
+    fiveDaysForecastData(state, payload) {
+      state.fiveDaysForecastData = {
+        ...payload,
+        list: [...payload.list.slice(0, 9)]
+      };
+    },
+    setForecastTenDays(state, payload) {
+      state.forecastTenDays = payload.list;
     },
     addToWatchList(state, payload) {
       const newCityID = payload.addID;
@@ -38,34 +58,64 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    async getAddressData({ commit }, city) {
-      commit("itemsIsLoading", true);
+    async getOneDayData({ commit }, city) {
+      commit("itemLoading", { homeLoading: true });
       axios
-        .get(`${getAddressDataAPI}${city}${metric}${apiKey}`)
+        .get(`${oneDayCityDataAPI}${city}${metric}${apiKey}`)
         .then(response => {
           if (response.statusText !== "OK") {
             throw Error(response.statusText);
           }
-          commit("itemsIsLoading", false);
+          commit("itemLoading", { homeLoading: false });
           return response;
         })
-        // .then(response => console.log(response))
         .then(response => {
-          commit("setAddressData", response.data);
+          commit("setOneDayForecastData", response.data);
         })
         .catch(() => {
-          commit("itemsIsLoading", false);
+          commit("itemLoading", { homeLoading: false });
           commit("itemHasErrored", true);
         });
     },
-    async getForecast({ commit }, cityID) {
-      const payload = await axios
-        .get(`${foreactFiveDays}${cityID}${metric}${apiKey}`)
-        .then(response => response.data);
-      commit({
-        type: "forecastForFiveDays",
-        foreactFive: payload
-      });
+    async getFiveDaysForecast({ commit }, cityID) {
+      commit("itemLoading", { fivedayForecastLoading: true });
+      axios
+        .get(`${forecastFiveDaysAPI}${cityID}${metric}${apiKey}`)
+        .then(response => {
+          if (response.statusText !== "OK") {
+            throw Error(response.statusText);
+          }
+          commit("itemLoading", { fivedayForecastLoading: false });
+          return response;
+        })
+        .then(response => {
+          commit("fiveDaysForecastData", response.data);
+        })
+        .catch(() => {
+          commit("itemLoading", { fivedayForecastLoading: false });
+          commit("itemHasErrored", true);
+        });
+    },
+    async getTenDaysForecast({ commit }, cityID) {
+      commit("itemLoading", { tenDaysForecastLoading: true });
+      axios
+        .get(`${forecastTenDaysAPI}${cityID}${metric}${apiKey}&cnt=10`)
+        .then(response => {
+          if (response.statusText !== "OK") {
+            throw Error(response.statusText);
+          }
+          commit("itemLoading", { tenDaysForecastLoading: false });
+          return response;
+        })
+        .then(response => {
+          // console.log(response.data);
+          const payload = response.data;
+          commit("setForecastTenDays", payload);
+        })
+        .catch(() => {
+          commit("itemLoading", { tenDaysForecastLoading: false });
+          commit("itemHasErrored", true);
+        });
     },
     addToWatchList(store, payload) {
       store.commit({

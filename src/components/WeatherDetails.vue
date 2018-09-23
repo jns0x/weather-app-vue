@@ -51,7 +51,7 @@ export default {
   justify-content: center;
   align-items: center;
   .weather-box {
-    margin-top: 2rem;
+    margin-top: 1rem;
     // border: 1px solid white;
     width: 100%;
     height: auto;

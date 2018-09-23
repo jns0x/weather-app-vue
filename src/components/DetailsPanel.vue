@@ -1,67 +1,88 @@
 <template>
-  <div class="details-wrapper">
-    <div class="details__row-days">
-      <div class="details__column">
-        <div class="details__column-time">Now</div>
-        <div class="details__column-pic">Icon</div>
-        <div class="details__column-temp">30C</div>
-      </div>
-      <div class="details__column">
-        <div class="details__column-time">Now</div>
-        <div class="details__column-pic">Icon</div>
-        <div class="details__column-temp">30C</div>
-      </div>
-      <div class="details__column">
-        <div class="details__column-time">Now</div>
-        <div class="details__column-pic">Icon</div>
-        <div class="details__column-temp">30C</div>
+  <div>
+    <Loading v-if="loading1" />
+    <!-- <template v-if="!loading"> -->
+    <div v-if="fiveDaysForecast">
+      <div class="details-wrapper">
+        <div class="details__row-days">
+          <div class="details__column" v-for="weather in fiveDaysForecast" :key="weather.dt">
+            <div class="details__column-time">{{ weather.dt_txt.split(" ")[1].substring(0,5) }}</div>
+            <img class="icon" v-bind:src="`http://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
+            <div class="details__column-temp">{{ Math.round(weather.main.temp *10)/10 }}
+              <sup>o</sup>
+            </div>
+          </div>
+        </div>
+        <Loading v-if="loading2" />
+        <div class="details__rows">
+          <div class="details__rows-row" v-for="weather in tenDaysForecast" :key="weather.dt*10">
+            <div class="details__rows-row-day">{{ getWeekDay(weather.dt) }}</div>
+            <img class="icon" v-bind:src="`http://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
+            <div class="details__column-temp">{{ Math.round(weather.temp.day *10)/10 }}
+              <sup>o</sup>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <dic class="details__rows">
-      <div class="details__rows-row">
-        <div class="details__rows-row-day">Sunday</div>
-        <div class="details__rows-row-icon">Icon</div>
-        <div class="details__rows-row-temp">30C</div>
-      </div>
-      <div class="details__rows-row">
-        <div class="details__rows-row-day">Sunday</div>
-        <div class="details__rows-row-icon">Icon</div>
-        <div class="details__rows-row-temp">30C</div>
-      </div>
-      <div class="details__rows-row">
-        <div class="details__rows-row-day">Sunday</div>
-        <div class="details__rows-row-icon">Icon</div>
-        <div class="details__rows-row-temp">30C</div>
-      </div>
-    </dic>
-
-    <div class="row-week">
-
-    </div>
+    <!-- </template> -->
   </div>
-
 </template>
 <script>
+import Loading from "./Loading";
+import { convertUnixTimeToWeekDay } from "../helpers";
 export default {
-  name: "DetailsPanel"
+  name: "DetailsPanel",
+  components: {
+    Loading
+  },
+  computed: {
+    fiveDaysForecast() {
+      // console.log("testComputed");
+      return this.$store.state.fiveDaysForecastData.list;
+    },
+    tenDaysForecast() {
+      return this.$store.state.forecastTenDays;
+    },
+    loading1() {
+      return this.$store.state.loading.fiveDaysForecastLoading;
+    },
+    loading2() {
+      return this.$store.state.loading.tenDaysForecastLoading;
+    }
+  },
+  methods: {
+    getWeekDay(unixTime) {
+      return convertUnixTimeToWeekDay(unixTime);
+    }
+  }
 };
 </script>
 <style lang="scss">
 @import "../styles/variables";
 @import "../styles/mixins";
+::-webkit-scrollbar {
+  display: none;
+}
 .details-wrapper {
   @extend %center-all;
   flex-direction: column;
   width: 100%;
   .details__row-days {
     @extend %center-all;
+    justify-content: flex-start;
     border-top: 0.1rem solid get-color(5);
     padding: 0.5rem 0 0 0;
     margin: 0.5rem 0 0 0;
     box-sizing: border-box;
-    width: 90%;
+    width: 95vw;
+    overflow-x: scroll;
+
     .details__column {
       margin: 0 1rem;
+      .details__column-temp {
+        @extend %center-all;
+      }
     }
   }
   .details__rows {
@@ -71,11 +92,16 @@ export default {
     margin: 0.5rem 0 0 0;
     box-sizing: border-box;
     flex-direction: column;
-    width: 90%;
+    width: 95vw;
+    overflow-x: scroll;
+    height: 23vh;
+    justify-content: flex-start;
     .details__rows-row {
       display: flex;
+      align-items: center;
       justify-content: space-between;
       width: 100%;
+      min-height: 2.5rem;
     }
   }
 }
