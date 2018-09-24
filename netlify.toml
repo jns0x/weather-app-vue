@@ -1,5 +1,0 @@
-[[redirects]]
-from = "/*"
-to = "https://api.openweathermap.org/data/2.5/"
-status = 200
-force = true
