@@ -1,2 +1,2 @@
 /*    /index.html   200
-/api/* https://api.openweathermap.org/data/2.5/:splat 200
+/api/* https://api.openweathermap.org/:splat 200
