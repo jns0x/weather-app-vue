@@ -1,5 +1,6 @@
 <template>
   <div>
+    <RefreshBtn v-if="getWeather" />
     <SearchBar />
     <Loading v-if="loading" :className="'tall'" />
     <ItemErrored v-if="errored" />
@@ -19,13 +20,15 @@ import SearchBar from "../components/SearchBar";
 import WeatherBox from "../components/WeatherBox";
 import Loading from "../components/Loading";
 import ItemErrored from "../components/ItemErrored";
+import RefreshBtn from "../atoms/RefreshBtn";
 export default {
   name: "Home",
   components: {
     SearchBar,
     WeatherBox,
     Loading,
-    ItemErrored
+    ItemErrored,
+    RefreshBtn
   },
   computed: {
     getWeather() {

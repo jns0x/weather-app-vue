@@ -49,9 +49,8 @@ html {
   text-align: center;
   color: white;
   height: 100vh;
-  max-height: 100vh;
   max-width: 100vw;
-  overflow: hidden;
+  overflow: scroll;
   @include gradient-bg(to right top, $colors-palette);
 
   h1 {

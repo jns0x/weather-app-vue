@@ -33,6 +33,10 @@ export default {
   color: white;
   margin: 0.1rem;
   cursor: pointer;
+  &.toggled {
+    position: relative;
+    bottom: 0.5rem;
+  }
   &:active {
     // animation: shadowOutline 250ms forwards ease-in-out;
     .btn__txt {

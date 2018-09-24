@@ -22,8 +22,13 @@
             <div class="details__rows-row" v-for="weather in tenDaysForecast" :key="weather.dt*10">
               <div class="details__rows-row-day">{{ getWeekDay(weather.dt) }}</div>
               <img class="icon" v-bind:src="`http://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
-              <div class="details__column-temp">{{ Math.round(weather.temp.day *10)/10 }}
-                <sup>o</sup>
+              <div class="details__column-temps">
+                <div class="details__column-temp temp-day">{{ Math.round(weather.temp.day *10)/10 }}
+                  <sup>o</sup>
+                </div>
+                <div class="details__column-temp temp-night">{{ Math.round(weather.temp.night *10)/10 }}
+                  <sup>o</sup>
+                </div>
               </div>
             </div>
           </div>
@@ -91,8 +96,8 @@ export default {
 
     .details__column {
       margin: 0 1rem;
-      .details__column-temp {
-        @extend %center-all;
+      &:first-child {
+        margin-left: 0;
       }
     }
   }
@@ -105,7 +110,7 @@ export default {
     flex-direction: column;
     width: 95vw;
     overflow-x: scroll;
-    height: 26vh;
+    max-height: 35vh;
     justify-content: flex-start;
     .details__rows-row {
       display: flex;
@@ -113,6 +118,19 @@ export default {
       justify-content: space-between;
       width: 100%;
       min-height: 2.5rem;
+
+      .details__column-temps {
+        @extend %center-all;
+        flex-direction: row;
+        width: 5.6rem;
+        justify-content: space-between;
+        text-align: left;
+        .details__column-temp {
+          &.temp-night {
+            color: darken($color: white, $amount: 70%);
+          }
+        }
+      }
     }
   }
 }

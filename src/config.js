@@ -1,4 +1,5 @@
 export const oneDayCityDataAPI = "/weather?q=";
+export const OneDayCitiDataAPIID = "/weather?id=";
 export const apiKey = "&APPID=8496070a6ed3bd27bd80c6c4595509b1";
 export const metric = "&units=metric";
 export const imperial = "&units=imperial";

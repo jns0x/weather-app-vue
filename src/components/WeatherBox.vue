@@ -1,7 +1,7 @@
 <template>
   <div class="weather-box__wrapper">
     <div class="weather-box">
-      <div class="weather__city">{{ weather.name }}</div>
+      <div class="weather__city">{{ weather.name }}, {{weather.sys.country}}, {{converTime(weather.dt)}} </div>
       <div class="group">
         <div class="weather__temp">{{ weather.main.temp }}
           <sup class="unit">o</sup>
@@ -24,8 +24,8 @@
     </div>
     <!-- <round-button @addToWatchList="addToWatchList" /> -->
     <!-- <default-button @moreDetails="moreDetails" :label="'Add to watchlist'" /> -->
-    <DetailsPanel/>
-    <default-button @moreDetails="moreDetails" :label="'Show details'" />
+    <DetailsPanel v-if="detailsShow" />
+    <default-button @moreDetails="moreDetails" :label="buttonLabelControl" />
   </div>
 </template>
 
@@ -41,14 +41,25 @@ export default {
     DefaultButton,
     DetailsPanel
   },
-  // mounted: {
-  //   mountedFn() {
-  //     console.log("cos");
-  //   }
-  // },
+  data() {
+    return {
+      buttonLabel: "Show details",
+      detailsShow: false
+    };
+  },
+
   props: {
     weather: {
       type: Object
+    }
+  },
+  computed: {
+    buttonLabelControl() {
+      if (this.detailsShow) {
+        return "Hide details";
+      } else {
+        return "Show details";
+      }
     }
   },
   methods: {
@@ -57,9 +68,12 @@ export default {
       this.$store.dispatch("addToWatchList", idNum);
     },
     moreDetails() {
-      const idNum = this.weather.id;
-      this.$store.dispatch("getFiveDaysForecast", idNum);
-      this.$store.dispatch("getTenDaysForecast", idNum);
+      this.detailsShow = !this.detailsShow;
+      if (this.detailsShow) {
+        const idNum = this.weather.id;
+        this.$store.dispatch("getFiveDaysForecast", idNum);
+        this.$store.dispatch("getTenDaysForecast", idNum);
+      }
     },
     converTime(unixTime) {
       return convertUnixTime(unixTime);
@@ -79,8 +93,9 @@ export default {
   .weather-box {
     margin-top: 0.5rem;
     // border: 1px solid white;
-    width: 100%;
+    // width: 100%;
     height: auto;
+    width: 95vw;
     .weather__city {
       @include font-size(1.5);
       margin: 0.5rem;
@@ -106,7 +121,7 @@ export default {
   .weather-desc__wrapper {
     @extend %center-all;
     text-align: left;
-    justify-content: space-around;
+    justify-content: space-between;
   }
 }
 </style>

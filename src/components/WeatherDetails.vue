@@ -53,7 +53,8 @@ export default {
   .weather-box {
     margin-top: 1rem;
     // border: 1px solid white;
-    width: 100%;
+    // width: 100%;
+    width: 95vw;
     height: auto;
     .weather__city {
       @include font-size(1.5);

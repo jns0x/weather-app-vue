@@ -8,7 +8,8 @@ import {
   apiKey,
   forecastFiveDaysAPI,
   forecastTenDaysAPI,
-  defaultHeaders
+  defaultHeaders,
+  OneDayCitiDataAPIID
 } from "../config";
 
 Vue.use(Vuex);
@@ -56,6 +57,10 @@ export default new Vuex.Store({
         const index = state.watchList.indexOf(newCityID);
         state.watchList.splice(index);
       }
+    },
+    hideDetailsPanel(state, payload) {
+      state.fiveDaysForecastData = payload;
+      state.forecastTenDays = payload;
     }
   },
   actions: {
@@ -63,6 +68,27 @@ export default new Vuex.Store({
       commit("itemLoading", { homeLoading: true });
       axios({
         url: `${oneDayCityDataAPI}${city}${metric}${apiKey}`,
+        baseURL: "https:/api.openweathermap.org/data/2.5"
+      })
+        .then(response => {
+          if (response.statusText !== "OK") {
+            throw Error(response.statusText);
+          }
+          commit("itemLoading", { homeLoading: false });
+          return response;
+        })
+        .then(response => {
+          commit("setOneDayForecastData", response.data);
+        })
+        .catch(() => {
+          commit("itemLoading", { homeLoading: false });
+          commit("itemHasErrored", true);
+        });
+    },
+    async getOneDayDataID({ commit }, city) {
+      commit("itemLoading", { homeLoading: true });
+      axios({
+        url: `${OneDayCitiDataAPIID}${city}${metric}${apiKey}`,
         baseURL: "https:/api.openweathermap.org/data/2.5"
       })
         .then(response => {
@@ -125,6 +151,9 @@ export default new Vuex.Store({
         type: "addToWatchList",
         addID: payload
       });
+    },
+    hideDetailsPanel(store) {
+      store.commit("hideDetailsPanel", false);
     }
   },
   plugins: [createLogger()]

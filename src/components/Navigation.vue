@@ -53,7 +53,7 @@ export default {
 
 .nav-container {
   width: 100%;
-  height: 2rem;
+  height: 1rem;
   display: flex;
   justify-content: flex-start;
   .menu-opener {
