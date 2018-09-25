@@ -14,6 +14,7 @@ export default {
   components: {
     VueGoogleAutocomplete
   },
+
   methods: {
     getAddressData(city) {
       this.$store.dispatch("getOneDayData", city);

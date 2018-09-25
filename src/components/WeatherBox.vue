@@ -1,6 +1,7 @@
 <template>
   <div class="weather-box__wrapper">
     <div class="weather-box">
+      <round-button class="round-btn" @addToWatchList="addToWatchList" />
       <div class="weather__city">{{ weather.name }}, {{weather.sys.country}}, {{converTime(weather.dt)}} </div>
       <div class="group">
         <div class="weather__temp">{{ weather.main.temp }}
@@ -22,7 +23,6 @@
         </div>
       </div>
     </div>
-    <!-- <round-button @addToWatchList="addToWatchList" /> -->
     <!-- <default-button @moreDetails="moreDetails" :label="'Add to watchlist'" /> -->
     <DetailsPanel v-if="detailsShow" />
     <default-button @moreDetails="moreDetails" :label="buttonLabelControl" />
@@ -96,6 +96,10 @@ export default {
     // width: 100%;
     height: auto;
     width: 95vw;
+    .round-btn {
+      position: absolute;
+      right: 0.5rem;
+    }
     .weather__city {
       @include font-size(1.5);
       margin: 0.5rem;

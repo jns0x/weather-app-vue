@@ -9,7 +9,8 @@ import {
   forecastFiveDaysAPI,
   forecastTenDaysAPI,
   defaultHeaders,
-  OneDayCitiDataAPIID
+  OneDayCitiDataAPIID,
+  oneDayCitySeveralID
 } from "../config";
 
 Vue.use(Vuex);
@@ -25,6 +26,7 @@ export default new Vuex.Store({
     oneDayForecastData: "",
     fiveDaysForecastData: "",
     forecastTenDays: "",
+    oneDayForecastDataSeveralID: "",
     watchList: []
   },
   mutations: {
@@ -48,6 +50,9 @@ export default new Vuex.Store({
     },
     setForecastTenDays(state, payload) {
       state.forecastTenDays = payload.list;
+    },
+    oneDayForecastDataSeveralID(state, payload) {
+      state.oneDayForecastDataSeveralID = payload;
     },
     addToWatchList(state, payload) {
       const newCityID = payload.addID;
@@ -88,7 +93,7 @@ export default new Vuex.Store({
     async getOneDayDataID({ commit }, city) {
       commit("itemLoading", { homeLoading: true });
       axios({
-        url: `${OneDayCitiDataAPIID}${city}${metric}${apiKey}`,
+        url: `${oneDayCitySeveralID}${city}${metric}${apiKey}`,
         baseURL: "https:/api.openweathermap.org/data/2.5"
       })
         .then(response => {
@@ -100,6 +105,27 @@ export default new Vuex.Store({
         })
         .then(response => {
           commit("setOneDayForecastData", response.data);
+        })
+        .catch(() => {
+          commit("itemLoading", { homeLoading: false });
+          commit("itemHasErrored", true);
+        });
+    },
+    async getSeveralIDData({ commit }, cityIDs) {
+      commit("itemLoading", { homeLoading: true });
+      axios({
+        url: `${OneDayCitiDataAPIID}${cityIDs}${metric}${apiKey}`,
+        baseURL: "https:/api.openweathermap.org/data/2.5"
+      })
+        .then(response => {
+          if (response.statusText !== "OK") {
+            throw Error(response.statusText);
+          }
+          commit("itemLoading", { homeLoading: false });
+          return response;
+        })
+        .then(response => {
+          commit("oneDayForecastDataSeveralID", response.data);
         })
         .catch(() => {
           commit("itemLoading", { homeLoading: false });

@@ -1,9 +1,10 @@
 <template>
-  <div class="btn" @click="$emit('addToWatchList')" v-on:click="changeClass" v-bind:class="{'toggled': btnToggle, 'unToggled': btnRemove}">
-    <div class="btn__cross" v-bind:class="{'toggled': btnToggle}"></div>
-
+  <div>
+    <div class="btn" @click="$emit('addToWatchList')" v-on:click="changeClass" v-bind:class="{'toggled': btnToggle, 'unToggled': btnRemove}">
+      <div class="btn__cross" v-bind:class="{'toggled': btnToggle}"></div>
+    </div>
+    <div class="btnMessage">{{ messageText }}</div>
   </div>
-
 </template>
 <script>
 export default {
@@ -11,7 +12,8 @@ export default {
   data() {
     return {
       btnToggle: false,
-      btnRemove: true
+      btnRemove: true,
+      messageText: "Added to watch list"
     };
   },
   methods: {
@@ -26,8 +28,15 @@ export default {
 };
 </script>
 <style lang="scss">
+.btnMessage {
+  background: alpha($color: #000000);
+  // padding: 1rem;
+  // border-radius: 1rem;
+  position: absolute;
+  margin: auto;
+}
 .btn {
-  border: 0.3rem solid white;
+  // border: 0.3rem solid white;
   border-radius: 50%;
   width: 2.5rem;
   height: 2.5rem;
