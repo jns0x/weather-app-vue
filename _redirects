@@ -1,2 +1,4 @@
-/*    /index.html   200
+# /_redirects
 /api/* https://api.openweathermap.org/:splat 200
+
+https://weather-app-vue-vuex.netlify.com/* https://api.openweathermap.org/:splat
