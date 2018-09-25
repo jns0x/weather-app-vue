@@ -1,2 +1,4 @@
 # /_redirects
 /weather-app-vue-vuex.netlify.com/* https://api.openweathermap.org/:splat
+
+https://weather-app-vue-vuex.netlify.com/* https://api.openweathermap.org/:splat

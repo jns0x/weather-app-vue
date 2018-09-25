@@ -113,10 +113,9 @@ export default new Vuex.Store({
     },
     async getSeveralIDData({ commit }, cityIDs) {
       commit("itemLoading", { homeLoading: true });
-      axios({
-        url: `${OneDayCitiDataAPIID}${cityIDs}${metric}${apiKey}`,
-        baseURL: "https:/api.openweathermap.org/data/2.5"
-      })
+      axios(
+        `https:/api.openweathermap.org/data/2.5${OneDayCitiDataAPIID}${cityIDs}${metric}${apiKey}`
+      )
         .then(response => {
           if (response.statusText !== "OK") {
             throw Error(response.statusText);
