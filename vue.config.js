@@ -1,5 +1,5 @@
 module.exports = {
-  baseUrl: "/weather-app-vue-vuex/",
+  baseUrl: "weather-app-vue-vuex.netlify.com",
   outputDir: "dist",
   assetsDir: "",
   indexPath: "index.html",
