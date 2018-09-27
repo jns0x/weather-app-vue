@@ -1,3 +1,3 @@
 module.exports = {
-  baseUrl: "weather-app-vue-vuex"
+  baseUrl: "/weather-app-vue-vuex/"
 };
