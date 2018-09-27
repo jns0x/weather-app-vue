@@ -85,7 +85,11 @@ export default new Vuex.Store({
         baseURL: "https:/api.openweathermap.org/data/2.5"
       })
         .then(response => {
-          if (response.statusText !== "OK") {
+          console.log(response);
+          return response;
+        })
+        .then(response => {
+          if (response.status !== 200) {
             throw Error(response.statusText);
           }
           commit("itemLoading", { homeLoading: false });
