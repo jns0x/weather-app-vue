@@ -1,11 +1,10 @@
 module.exports = {
-  baseUrl: "weather-app-vue-vuex.netlify.com",
-  outputDir: "dist",
-  assetsDir: "",
-  indexPath: "index.html",
-  pages: {
-    index: {
-      entry: "src/index/main.js"
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'https:/api.openweathermap.org/data/2.5/',
+        ws: true,
+        changeOrigin: true
+      },
     }
-  }
 };
