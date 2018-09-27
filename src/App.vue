@@ -16,22 +16,8 @@ import "normalize.css";
 import "animate.css";
 
 export default {
-  components: { Navigation }
-  // data() {
-  //   return {
-  //     transitionName: "slide-left",
-  //     transition: 0
-  //   };
-  // },
-  // watch: {
-  //   $route(to, from) {
-  //     const routeArr = ["/", "/watching", "/fixed-watch-list"];
-  //     const routeIndex = routeArr.indexOf(to.path);
-  //     this.transitionName =
-  //       this.transition > routeIndex ? "animated fadeInRight" : "fadeInLeft";
-  //     this.transition = routeIndex;
-  //   }
-  // }
+  components: { Navigation },
+  mounted() {}
 };
 </script>
 

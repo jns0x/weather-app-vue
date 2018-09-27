@@ -50,7 +50,6 @@ export default {
   },
   computed: {
     fiveDaysForecast() {
-      // console.log("testComputed");
       return this.$store.state.fiveDaysForecastData.list;
     },
     tenDaysForecast() {
@@ -61,7 +60,6 @@ export default {
     },
     loading2() {
       return this.$store.state.loading.tenDaysForecastLoading;
-      // return true;
     },
     errored() {
       return this.$store.state.itemErrored;

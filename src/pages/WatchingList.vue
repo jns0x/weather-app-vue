@@ -1,29 +1,40 @@
 <template>
   <div>
     <h2>Watching list</h2>
-    <div v-if="getWatchListData"></div>
+    <div v-if="getWatchListData.length">
+      <weather-list-item/>
+    </div>
   </div>
 </template>
 
 <script>
-import WeatherWatch from "../components/WeatherWatch";
+import WeatherListItem from "../components/WeatherListItem";
+import { setToLocalStorage, getFromLocalStorage } from "../helpers";
 export default {
   name: "WatchingList",
-  components: { WeatherWatch },
+  components: { WeatherListItem },
   data() {
-    return {
-      watchListID: this.$store.state.watchList
-    };
+    return {};
+  },
+  mounted() {
+    //getting items from local storage
   },
   created() {
-    this.$store.dispatch("getSeveralIDData", watchListID);
+    const watchListID = this.$store.state.watchList;
+    console.log(watchListID);
+    if (!watchListID.length > 0) {
+      console.log("true");
+      const watchListStorage = getFromLocalStorage("watchList");
+      this.$store.dispatch("setWatchListFromLocalStorage", watchListStorage);
+    }
+    if (watchListID.length > 0) {
+      console.log(watchListID);
+      this.$store.dispatch("getSeveralIDData", watchListID);
+    }
   },
   computed: {
     getWatchListData() {
-      const watchListID = this.$store.state.watchList;
-      // console.log(watchListID.join(","));
-      this.$store.dispatch("getSeveralIDData", watchListID.join(","));
-      return "cos";
+      return this.$store.state.oneDayForecastDataSeveralID;
     }
   },
   methods: {

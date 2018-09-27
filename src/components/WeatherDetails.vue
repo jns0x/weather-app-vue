@@ -31,7 +31,7 @@ export default {
     }
   },
   created() {
-    console.log(this.weather);
+    // console.log(this.weather);
   },
   methods: {
     addToWatchList() {

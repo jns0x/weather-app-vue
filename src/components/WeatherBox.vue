@@ -1,7 +1,7 @@
 <template>
   <div class="weather-box__wrapper">
     <div class="weather-box">
-      <round-button class="round-btn" @addToWatchList="addToWatchList" />
+      <!-- <round-button class="round-btn" @addToWatchList="addToWatchList" /> -->
       <div class="weather__city">{{ weather.name }}, {{weather.sys.country}}, {{converTime(weather.dt)}} </div>
       <div class="group">
         <div class="weather__temp">{{ weather.main.temp }}
@@ -24,6 +24,7 @@
       </div>
     </div>
     <!-- <default-button @moreDetails="moreDetails" :label="'Add to watchlist'" /> -->
+    <fav-button :cityID="weather.id" />
     <DetailsPanel v-if="detailsShow" />
     <default-button @moreDetails="moreDetails" :label="buttonLabelControl" />
   </div>
@@ -33,13 +34,15 @@
 import RoundButton from "../atoms/RoundButton";
 import DefaultButton from "../atoms/DefaultButton";
 import DetailsPanel from "./DetailsPanel";
+import FavButton from "../atoms/FavButton";
 import { convertUnixTime } from "../helpers";
 export default {
   name: "WeatherBox",
   components: {
     RoundButton,
     DefaultButton,
-    DetailsPanel
+    DetailsPanel,
+    FavButton
   },
   data() {
     return {

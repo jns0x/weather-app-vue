@@ -12,8 +12,8 @@ export default {
   data() {
     return {
       btnToggle: false,
-      btnRemove: true,
-      messageText: "Added to watch list"
+      btnRemove: true
+      // messageText: "Added to watch list"
     };
   },
   methods: {

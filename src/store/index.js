@@ -9,7 +9,7 @@ import {
   forecastFiveDaysAPI,
   forecastTenDaysAPI,
   defaultHeaders,
-  OneDayCitiDataAPIID,
+  oneDayCitiDataAPIID,
   oneDayCitySeveralID
 } from "../config";
 
@@ -28,6 +28,7 @@ export default new Vuex.Store({
     forecastTenDays: "",
     oneDayForecastDataSeveralID: "",
     watchList: []
+    // [759734, 756135, 759734, 756135, 759734, 756135]
   },
   mutations: {
     itemLoading(state, payload) {
@@ -52,7 +53,7 @@ export default new Vuex.Store({
       state.forecastTenDays = payload.list;
     },
     oneDayForecastDataSeveralID(state, payload) {
-      state.oneDayForecastDataSeveralID = payload;
+      state.oneDayForecastDataSeveralID = payload.list;
     },
     addToWatchList(state, payload) {
       const newCityID = payload.addID;
@@ -62,10 +63,18 @@ export default new Vuex.Store({
         const index = state.watchList.indexOf(newCityID);
         state.watchList.splice(index);
       }
+      if (state.oneDayForecastDataSeveralID.length) {
+        state.oneDayForecastDataSeveralID = state.oneDayForecastDataSeveralID.filter(
+          el => el.id !== newCityID
+        );
+      }
     },
     hideDetailsPanel(state, payload) {
       state.fiveDaysForecastData = payload;
       state.forecastTenDays = payload;
+    },
+    setWatchListFromLocalStorage(state, payload) {
+      state.watchList.push(payload);
     }
   },
   actions: {
@@ -114,7 +123,7 @@ export default new Vuex.Store({
     async getSeveralIDData({ commit }, cityIDs) {
       commit("itemLoading", { homeLoading: true });
       axios(
-        `https:/api.openweathermap.org/data/2.5${OneDayCitiDataAPIID}${cityIDs}${metric}${apiKey}`
+        `https:/api.openweathermap.org/data/2.5/${oneDayCitySeveralID}${cityIDs}${metric}${apiKey}`
       )
         .then(response => {
           if (response.statusText !== "OK") {
@@ -162,7 +171,6 @@ export default new Vuex.Store({
           return response;
         })
         .then(response => {
-          // console.log(response.data);
           const payload = response.data;
           commit("setForecastTenDays", payload);
         })
@@ -179,6 +187,9 @@ export default new Vuex.Store({
     },
     hideDetailsPanel(store) {
       store.commit("hideDetailsPanel", false);
+    },
+    setWatchListFromLocalStorage(store, payload) {
+      store.commit("setWatchListFromLocalStorage", payload);
     }
   },
   plugins: [createLogger()]
