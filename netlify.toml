@@ -1,5 +1,4 @@
-[[redirects]]
-from = "/weather-app-vue-vuex.netlify.com/*"
-to = "https://api.openweathermap.org/:splat"
-status = 200
-force = true
+[build]
+  Command = "yarn build"
+  Functions = "lambda"
+  Publish = "dist"

@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "npm run build && now && now alias"
   },
   "dependencies": {
     "animate.css": "^3.7.0",
@@ -24,6 +25,7 @@
     "node-sass": "^4.9.3",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.0",
+    "vue-cli-plugin-netlify-lambda": "^0.1.0",
     "vue-template-compiler": "^2.5.17"
   },
   "eslintConfig": {
