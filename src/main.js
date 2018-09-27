@@ -25,5 +25,8 @@ const router = new VueRouter({
 new Vue({
   store,
   router,
+  beforeCreate() {
+    this.$store.commit("initialiseStoreFromSLocaltorage");
+  },
   render: h => h(App)
 }).$mount("#app");

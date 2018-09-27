@@ -10,11 +10,13 @@ import { setToLocalStorage } from "../helpers";
 export default {
   name: "FavButton",
   props: ["cityID"],
+  //756135, 3094802, 4887398, 3177171, 3165201
   methods: {
     watchListAction() {
       // const idNum = this.weather.id;
       this.$store.dispatch("addToWatchList", this.cityID);
       const watchList = this.$store.state.watchList;
+      // console.log(watchList);
       setToLocalStorage("watchList", watchList);
     }
   }

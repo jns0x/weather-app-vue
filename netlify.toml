@@ -2,7 +2,6 @@
   from = "https://weather-app-vue-vuex.netlify.com/api.openweathermap.org/*"
   to = "https://api.openweathermap.org/:splat"
   status = 200
-  statusText = "OK"
   force = true
 [redirects.headers]
     X-From = "Netlify"

@@ -19,7 +19,7 @@ export function convertUnixTimeToWeekDay(unixTime) {
 export function setToLocalStorage(name, obj) {
   if (typeof Storage !== "undefined") {
     // Code for localStorage/sessionStorage.
-    return localStorage.setItem(name, obj);
+    return localStorage.setItem(name, JSON.stringify(obj));
   } else {
     // Sorry! No Web Storage support..
   }
@@ -27,7 +27,7 @@ export function setToLocalStorage(name, obj) {
 export function getFromLocalStorage(name) {
   if (typeof Storage !== "undefined") {
     // Code for localStorage/sessionStorage.
-    return localStorage.getItem(name);
+    return JSON.parse(localStorage.getItem(name));
   } else {
     // Sorry! No Web Storage support..
   }

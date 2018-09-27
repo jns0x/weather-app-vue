@@ -28,9 +28,17 @@ export default new Vuex.Store({
     forecastTenDays: "",
     oneDayForecastDataSeveralID: "",
     watchList: []
+
     // [759734, 756135, 759734, 756135, 759734, 756135]
   },
   mutations: {
+    initialiseStoreFromSLocaltorage(state) {
+      // Check if the ID exists
+      if (localStorage.getItem("watchList")) {
+        // Replace the state object with the stored item
+        state.watchList.push(...JSON.parse(localStorage.getItem("watchList")));
+      }
+    },
     itemLoading(state, payload) {
       state.loading = {
         ...state.loading,
@@ -61,7 +69,8 @@ export default new Vuex.Store({
         state.watchList.push(newCityID);
       } else {
         const index = state.watchList.indexOf(newCityID);
-        state.watchList.splice(index);
+        state.watchList.splice(index, 1);
+        console.log(state.watchList);
       }
       if (state.oneDayForecastDataSeveralID.length) {
         state.oneDayForecastDataSeveralID = state.oneDayForecastDataSeveralID.filter(
@@ -74,7 +83,7 @@ export default new Vuex.Store({
       state.forecastTenDays = payload;
     },
     setWatchListFromLocalStorage(state, payload) {
-      state.watchList.push(payload);
+      state.watchList.push(...payload);
     }
   },
   actions: {

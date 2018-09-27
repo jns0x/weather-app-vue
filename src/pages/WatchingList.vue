@@ -21,12 +21,6 @@ export default {
   },
   created() {
     const watchListID = this.$store.state.watchList;
-    console.log(watchListID);
-    if (!watchListID.length > 0) {
-      console.log("true");
-      const watchListStorage = getFromLocalStorage("watchList");
-      this.$store.dispatch("setWatchListFromLocalStorage", watchListStorage);
-    }
     if (watchListID.length > 0) {
       console.log(watchListID);
       this.$store.dispatch("getSeveralIDData", watchListID);

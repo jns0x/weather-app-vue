@@ -28,3 +28,9 @@
     @content;
   }
 }
+
+@mixin normal {
+  @media (min-width: #{$mobile-width+1px}) {
+    @content;
+  }
+}

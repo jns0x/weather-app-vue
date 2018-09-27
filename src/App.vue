@@ -16,8 +16,7 @@ import "normalize.css";
 import "animate.css";
 
 export default {
-  components: { Navigation },
-  mounted() {}
+  components: { Navigation }
 };
 </script>
 

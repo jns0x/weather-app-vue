@@ -10,17 +10,17 @@
             Home
           </li>
         </router-link>
-        <router-link class="menu--list-item" to="/details" v-bind:class="{'active': menuToggle}">
+        <!-- <router-link class="menu--list-item" to="/details" v-bind:class="{'active': menuToggle}">
           <li>
             Details
           </li>
-        </router-link>
+        </router-link> -->
         <router-link class="menu--list-item" to="/watching" v-bind:class="{'active': menuToggle}">
           <li>
             Watching
           </li>
         </router-link>
-        <router-link class="menu--list-item" to="/fixed-watch-list" v-bind:class="{'active': menuToggle}">
+        <!-- <router-link class="menu--list-item" to="/fixed-watch-list" v-bind:class="{'active': menuToggle}">
           <li>
             Cities in Poland
           </li>
@@ -29,7 +29,7 @@
           <li>
             404
           </li>
-        </router-link>
+        </router-link> -->
       </ul>
     </nav>
   </div>
@@ -56,6 +56,9 @@ export default {
   height: 1rem;
   display: flex;
   justify-content: flex-start;
+  @include normal {
+    min-height: 3.7rem;
+  }
   .menu-opener {
     cursor: pointer;
     height: 3.7rem;
@@ -114,16 +117,17 @@ export default {
   }
   .menu {
     display: flex;
-    max-height: 3.7rem;
+    max-height: unset;
+
     position: absolute;
     height: 100%;
     width: 20%;
     transition: 350ms all;
-    left: -7rem;
+    left: -21%;
     z-index: 2;
     @include font-size(3);
-    @include mobile {
-      max-height: unset;
+    @include normal {
+      max-height: 3.7rem;
     }
     &.active {
       position: inherit;
