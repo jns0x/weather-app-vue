@@ -16,7 +16,7 @@
           {{weather.main.temp}}
           <sup>o</sup>
         </div>
-        <img class="icon" v-bind:src="`http://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
+        <img class="icon" v-bind:src="`https://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
       </div>
       <fav-button :cityID="weather.id" />
     </div>

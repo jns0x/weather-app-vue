@@ -9,7 +9,7 @@
         <div class="details__row-days">
           <div class="details__column" v-for="weather in fiveDaysForecast" :key="weather.dt">
             <div class="details__column-time">{{ weather.dt_txt.split(" ")[1].substring(0,5) }}</div>
-            <img class="icon" v-bind:src="`http://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
+            <img class="icon" v-bind:src="`https://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
             <div class="details__column-temp">{{ Math.round(weather.main.temp *10)/10 }}
               <sup>o</sup>
             </div>
@@ -21,7 +21,7 @@
           <div class="details__rows">
             <div class="details__rows-row" v-for="weather in tenDaysForecast" :key="weather.dt*10">
               <div class="details__rows-row-day">{{ getWeekDay(weather.dt) }}</div>
-              <img class="icon" v-bind:src="`http://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
+              <img class="icon" v-bind:src="`https://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
               <div class="details__column-temps">
                 <div class="details__column-temp temp-day">{{ Math.round(weather.temp.day *10)/10 }}
                   <sup>o</sup>

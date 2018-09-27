@@ -110,7 +110,7 @@ export default new Vuex.Store({
         baseURL: "https:/api.openweathermap.org/data/2.5"
       })
         .then(response => {
-          if (response.statusText !== "OK") {
+          if (response.status !== 200) {
             throw Error(response.statusText);
           }
           commit("itemLoading", { homeLoading: false });
@@ -130,7 +130,7 @@ export default new Vuex.Store({
         `https:/api.openweathermap.org/data/2.5/${oneDayCitySeveralID}${cityIDs}${metric}${apiKey}`
       )
         .then(response => {
-          if (response.statusText !== "OK") {
+          if (response.status !== 200) {
             throw Error(response.statusText);
           }
           commit("itemLoading", { homeLoading: false });
@@ -149,7 +149,7 @@ export default new Vuex.Store({
       axios
         .get(`${forecastFiveDaysAPI}${cityID}${metric}${apiKey}`)
         .then(response => {
-          if (response.statusText !== "OK") {
+          if (response.status !== 200) {
             throw Error(response.statusText);
           }
           commit("itemLoading", { fivedayForecastLoading: false });
@@ -168,7 +168,7 @@ export default new Vuex.Store({
       axios
         .get(`${forecastTenDaysAPI}${cityID}${metric}${apiKey}&cnt=10`)
         .then(response => {
-          if (response.statusText !== "OK") {
+          if (response.status !== 200) {
             throw Error(response.statusText);
           }
           commit("itemLoading", { tenDaysForecastLoading: false });

@@ -7,7 +7,7 @@
         <div class="weather__temp">{{ weather.main.temp }}
           <sup class="unit">o</sup>
         </div>
-        <img class="icon" v-bind:src="`http://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
+        <img class="icon" v-bind:src="`https://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
       </div>
       <p class="weather-desc">{{ weather.weather[0].description }}</p>
       <div class="weather-desc__wrapper">
