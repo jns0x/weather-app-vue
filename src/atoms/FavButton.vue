@@ -1,7 +1,7 @@
 <template>
   <button v-on:click="watchListAction" class="favButton">
     <div class="favButton-shape"></div>
-    {{cityID}}
+    {{cityID}} add/remove
   </button>
 
 </template>
