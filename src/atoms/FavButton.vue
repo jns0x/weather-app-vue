@@ -1,7 +1,7 @@
 <template>
   <button v-on:click="watchListAction" class="favButton">
     <div class="favButton-shape"></div>
-    {{cityID}} add/remove
+    {{checkIfInWatchList}}
   </button>
 
 </template>
@@ -19,17 +19,35 @@ export default {
       // console.log(watchList);
       setToLocalStorage("watchList", watchList);
     }
+  },
+  computed: {
+    checkIfInWatchList() {
+      // this.$store.state.watchList.includes(this.cityID) ? "Remove" : "Add";
+      if (this.$store.state.watchList.includes(this.cityID)) {
+        return "Remove";
+      } else {
+        return "Add";
+      }
+    }
   }
 };
 </script>
 <style lang="scss">
 .favButton {
   outline: none;
-  border: 1px solid white;
+  border: 0.2rem solid white;
   height: 2.75rem;
-  width: 2.75rem;
-  border-radius: 50%;
+  width: auto;
+  border-radius: 1rem;
+  color: white;
+  background: none;
+  vertical-align: middle;
+  line-height: 1rem;
   cursor: pointer;
+  &:active {
+    transform: scale(0.8);
+    transition: 500ms linear;
+  }
   .favButton-shape {
     border: 0.25rem solid transparent;
   }
