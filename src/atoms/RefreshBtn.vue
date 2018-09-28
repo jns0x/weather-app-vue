@@ -1,5 +1,5 @@
 <template>
-  <button class="btn__refresh" v-on:click="toggleRefresh" v-bind:class="{ 'activated':buttonToggled}">
+  <button class="btn__refresh" v-on:click="toggleRefresh" v-bind:class="{'rotate': buttonToggled}">
   </button>
 
 </template>
@@ -11,16 +11,22 @@ export default {
       buttonToggled: false
     };
   },
+  computed: {
+    classObject: function() {
+      return {
+        rotate: (this.buttonToggled = true)
+      };
+    }
+  },
   methods: {
     toggleRefresh() {
       this.buttonToggled = !this.buttonToggled;
-      // setTimeout(function() {
-      //   this.buttonToggled = false;
-      // }, 1000);
       const cityID = this.$store.state.oneDayForecastData.id;
       this.$store.dispatch("getOneDayDataID", cityID);
-      // this.$store.dispatch("getFiveDaysForecast", cityID);
-      // this.$store.dispatch("getTenDaysForecast", cityID);
+      setTimeout(this.switchStyleOff, 1000);
+    },
+    switchStyleOff() {
+      this.buttonToggled = false;
     }
   }
 };
@@ -40,15 +46,15 @@ export default {
   position: absolute;
   right: 0.1rem;
   top: 0.1rem;
-  &:hover {
-    transform: rotate(360deg);
-    transition: 1000ms ease-in-out;
-  }
-  &.activated {
+  // &:hover {
+  //   transform: rotate(360deg);
+  //   transition: 1000ms ease-in-out;
+  // }
+  &.rotate {
     // animation: rotate 3000ms linear;
     // transform: rotate(720deg);
     // transition: 1000ms linear;
-    animation: rotateRefresh 1000ms ease-in-out;
+    animation: rotateRefresh 1000ms forwards;
   }
 }
 @keyframes rotateRefresh {

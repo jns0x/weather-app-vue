@@ -126,7 +126,7 @@ export default new Vuex.Store({
           return response;
         })
         .then(response => {
-          commit("setOneDayForecastData", response.data);
+          commit("setOneDayForecastData", response.data.list[0]);
         })
         .catch(() => {
           commit("itemLoading", { homeLoading: false });
