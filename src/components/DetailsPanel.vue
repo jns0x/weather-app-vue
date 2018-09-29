@@ -82,6 +82,9 @@ export default {
   @extend %center-all;
   flex-direction: column;
   width: 100%;
+  @include custom(740px) {
+    max-width: 740px;
+  }
   .details__row-days {
     @extend %center-all;
     justify-content: flex-start;
@@ -91,6 +94,10 @@ export default {
     box-sizing: border-box;
     width: 95vw;
     overflow-x: scroll;
+    @include custom(740px) {
+      width: 100%;
+      justify-content: space-between;
+    }
 
     .details__column {
       margin: 0 1rem;
@@ -110,6 +117,10 @@ export default {
     overflow-x: scroll;
     max-height: 35vh;
     justify-content: flex-start;
+    @include custom(740px) {
+      // width: 100%;
+      max-width: 740px;
+    }
     .details__rows-row {
       display: flex;
       align-items: center;
@@ -120,7 +131,7 @@ export default {
       .details__column-temps {
         @extend %center-all;
         flex-direction: row;
-        width: 5.6rem;
+        width: 7rem;
         justify-content: space-between;
         text-align: left;
         .details__column-temp {

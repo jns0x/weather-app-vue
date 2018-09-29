@@ -43,9 +43,9 @@ export default {
   width: 3.5rem;
   background-size: cover;
   cursor: pointer;
-  position: absolute;
-  right: 0.1rem;
-  top: 0.1rem;
+  // position: absolute;
+  // right: 0rem;
+  // top: -2.3rem;
   // &:hover {
   //   transform: rotate(360deg);
   //   transition: 1000ms ease-in-out;

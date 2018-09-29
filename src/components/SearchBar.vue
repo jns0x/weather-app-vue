@@ -36,9 +36,10 @@ h2 {
   border: none;
   padding: 0.5rem;
   outline: none;
-  width: 50%;
-  @include mobile {
-    width: 60%;
+  width: 60%;
+  @include normal {
+    width: 50%;
+    max-width: 20rem;
   }
 }
 .pac-container {

@@ -56,8 +56,10 @@ export default {
   height: 1rem;
   display: flex;
   justify-content: flex-start;
+  position: relative;
   @include normal {
     min-height: 3.7rem;
+    position: unset;
   }
   .menu-opener {
     cursor: pointer;
@@ -137,6 +139,7 @@ export default {
       @include mobile {
         position: absolute;
         left: unset;
+        top: 0;
       }
     }
     .menu--list {

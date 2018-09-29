@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <RefreshBtn v-if="getWeather" />
+  <div class="home--wrapper">
+    <RefreshBtn class="btn--refresh" v-if="getWeather" />
     <SearchBar />
     <Loading v-if="loading" :className="'tall'" />
     <ItemErrored v-if="errored" />
@@ -51,6 +51,17 @@ export default {
  <style lang="scss">
 @import "../styles/variables";
 @import "../styles/mixins";
+.home--wrapper {
+  position: relative;
+  .btn--refresh {
+    position: absolute;
+    right: 0rem;
+    top: -2.3rem;
+    @include normal {
+      top: -5rem;
+    }
+  }
+}
 h2 {
   @include font-size(1.5);
 }
