@@ -1,8 +1,5 @@
 <template>
-
   <div class="loading-wrapper" v-bind:class="className">
-    <!-- <div class="loading"></div> -->
-
     <div class="lds-roller">
       <div></div>
       <div></div>
@@ -13,8 +10,6 @@
       <div></div>
       <div></div>
     </div>
-    <!-- <br /> Loading... -->
-
   </div>
 </template>
 <script>
@@ -39,34 +34,6 @@ export default {
     height: 40vw;
   }
 }
-// .loading-wrapper {
-//   width: 100%;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   .loading {
-//     border: 0.4rem solid white;
-//     border-radius: 50%;
-//     height: 3rem;
-//     width: 3rem;
-//     position: relative;
-//     border-top: 0.4rem solid get-color(1);
-//     &:hover {
-//       border-right: 0.4rem solid get-color(1);
-//       transition: 500ms ease-in-out;
-//     }
-//     &:after {
-//       content: "";
-//       border-top: 0.4rem solid get-color(1);
-//       width: 3rem;
-//       height: 3rem;
-//       border-radius: 50%;
-//       left: -0.4rem;
-//       position: absolute;
-//       top: -0.4rem;
-//     }
-//   }
-// }
 
 .lds-roller {
   display: inline-block;

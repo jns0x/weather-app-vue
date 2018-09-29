@@ -18,13 +18,9 @@ export default {
   data() {
     return {};
   },
-  mounted() {
-    //getting items from local storage
-  },
   created() {
     const watchListID = this.$store.state.watchList;
     if (watchListID.length > 0) {
-      console.log(watchListID);
       this.$store.dispatch("getSeveralIDData", watchListID);
     }
   },

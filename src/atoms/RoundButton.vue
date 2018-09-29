@@ -13,7 +13,6 @@ export default {
     return {
       btnToggle: false,
       btnRemove: true
-      // messageText: "Added to watch list"
     };
   },
   methods: {
@@ -30,19 +29,15 @@ export default {
 <style lang="scss">
 .btnMessage {
   background: alpha($color: #000000);
-  // padding: 1rem;
-  // border-radius: 1rem;
   position: absolute;
   margin: auto;
 }
 .btn {
-  // border: 0.3rem solid white;
   border-radius: 50%;
   width: 2.5rem;
   height: 2.5rem;
   position: relative;
   cursor: pointer;
-
   &:hover {
     .btn__cross {
       transform: rotate(180deg);

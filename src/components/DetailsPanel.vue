@@ -118,7 +118,6 @@ export default {
     max-height: 35vh;
     justify-content: flex-start;
     @include custom(740px) {
-      // width: 100%;
       max-width: 740px;
     }
     .details__rows-row {

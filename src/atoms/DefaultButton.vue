@@ -48,43 +48,4 @@ export default {
     }
   }
 }
-// .btn__default {
-//   background: none;
-//   border: 0.2rem solid white;
-//   padding: 0.5rem;
-//   border-radius: 1rem;
-//   color: white;
-//   margin: 0.1rem;
-//   cursor: pointer;
-//   &.toggled {
-//     position: relative;
-//     bottom: 0.5rem;
-//   }
-//   &:active {
-//     // animation: shadowOutline 250ms forwards ease-in-out;
-//     animation: scale 250ms forwards ease-in-out;
-//     .btn__txt {
-//       // transform: scale(0.9);
-//       // transition: 250ms ease-in-out;
-//     }
-//   }
-//   .btn__txt {
-//     &:active {
-//       // transform: scale(0.9);
-//       // transition: 250ms ease-in-out;
-//       // animation: scale 250ms forwards ease-in-out;
-//     }
-//   }
-// }
-// @keyframes scale {
-//   0% {
-//     transform: scale(1);
-//   }
-//   50% {
-//     transform: scale(0.9);
-//   }
-//   100% {
-//     transform: scale(0.1);
-//   }
-// }
 </style>

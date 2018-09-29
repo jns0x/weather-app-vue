@@ -59,7 +59,6 @@ html {
 }
 .router-anim-leave-active {
   animation: going 1s;
-  display: inline-block;
 }
 
 @keyframes going {
@@ -69,14 +68,14 @@ html {
     position: absolute;
   }
   to {
-    transform: translateX(100%);
+    transform: translateX(100vw);
     opacity: 0;
     position: absolute;
   }
 }
 @keyframes coming {
   from {
-    transform: translateX(-100%);
+    transform: translateX(-100vw);
     opacity: 0;
     position: absolute;
   }

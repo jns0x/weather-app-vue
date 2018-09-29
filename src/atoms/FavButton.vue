@@ -16,21 +16,13 @@ export default {
   //756135, 3094802, 4887398, 3177171, 3165201
   methods: {
     watchListAction() {
-      // const idNum = this.weather.id;
       this.$store.dispatch("addToWatchList", this.cityID);
       const watchList = this.$store.state.watchList;
-      // console.log(watchList);
       setToLocalStorage("watchList", watchList);
     }
   },
   computed: {
     checkIfInWatchList() {
-      // this.$store.state.watchList.includes(this.cityID) ? "Remove" : "Add";
-      // if (this.$store.state.watchList.includes(this.cityID)) {
-      //   return "Remove";
-      // } else {
-      //   return "Add";
-      // }
       return this.$store.state.watchList.includes(this.cityID);
     },
     dynamicTitle() {

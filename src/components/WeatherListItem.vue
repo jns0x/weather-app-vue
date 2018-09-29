@@ -1,9 +1,6 @@
 <template>
-
   <div class="weather-watch__wrapper">
-
     <div class="weather-watch" v-for="weather in getWatchListData" :key="weather.id">
-
       <div class="weather-watch__details">
         <div class="weather-watch-title">
           {{weather.name}}, {{weather.sys.country}}, {{converTime(weather.dt)}}
@@ -12,7 +9,6 @@
           {{ weather.weather[0].description }}
         </div>
         humidity: {{weather.main.humidity}} <br>pressure: {{weather.main.pressure}}
-
       </div>
       <div class="weather-watch__temp">
         <div class="weather-watch-temp">
@@ -22,11 +18,8 @@
         <img class="icon" v-bind:src="`https://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
       </div>
       <fav-button class="fav-position" :cityID="weather.id" />
-
     </div>
-
   </div>
-
 </template>
 <script>
 import FavButton from "../atoms/FavButton";
