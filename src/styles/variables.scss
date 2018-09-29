@@ -1,0 +1,19 @@
+$base-font: 16px;
+
+$colors-palette: (
+  1: #6d327c,
+  2: #485da6,
+  3: #00a1ba,
+  4: #00bf98,
+  5: #36c486
+);
+
+%center-all {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+$mobile-width: 640px;
+$tablet-width: 768px;
+$desktop-width: 1024px;
