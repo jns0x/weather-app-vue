@@ -2,7 +2,8 @@
   <div id="app">
     <Navigation/>
     <!-- <transition :name="transitionName"> -->
-    <transition enter-active-class="animated fadeInRight" leave-active-class="animated fadeOutLeft">
+    <transition enter-active-class="router-anim-enter-active" leave-active-class="router-anim-leave-active">
+      <!-- <transition enter-active-class="animated fadeInRight" leave-active-class="animated fadeOutLeft"> -->
       <router-view/>
     </transition>
   </div>
@@ -55,30 +56,34 @@ html {
 }
 .router-anim-enter-active {
   animation: coming 1s;
-  // animation-delay: 0.5s;
-  opacity: 0;
 }
 .router-anim-leave-active {
   animation: going 1s;
+  display: inline-block;
 }
 
 @keyframes going {
   from {
     transform: translateX(0);
+    opacity: 1;
+    position: absolute;
   }
   to {
-    transform: translateX(-10rem);
+    transform: translateX(100%);
     opacity: 0;
+    position: absolute;
   }
 }
 @keyframes coming {
   from {
-    transform: translateX(-10rem);
+    transform: translateX(-100%);
     opacity: 0;
+    position: absolute;
   }
   to {
     transform: translateX(0);
     opacity: 1;
+    position: absolute;
   }
 }
 </style>

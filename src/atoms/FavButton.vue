@@ -73,6 +73,10 @@ export default {
   cursor: pointer;
   outline: none;
   transition: 200ms ease;
+  &:active {
+    transition: 200ms ease;
+    transform: scale(0.8);
+  }
   &:hover {
     transition: 200ms ease;
     transform: scale(1.1);

@@ -70,7 +70,7 @@ export default new Vuex.Store({
       } else {
         const index = state.watchList.indexOf(newCityID);
         state.watchList.splice(index, 1);
-        console.log(state.watchList);
+        // console.log(state.watchList);
       }
       if (state.oneDayForecastDataSeveralID.length) {
         state.oneDayForecastDataSeveralID = state.oneDayForecastDataSeveralID.filter(
@@ -88,13 +88,13 @@ export default new Vuex.Store({
   },
   actions: {
     async getOneDayData({ commit }, city) {
+      commit("itemHasErrored", false);
       commit("itemLoading", { homeLoading: true });
       axios({
         url: `${oneDayCityDataAPI}${city}${metric}${apiKey}`,
         baseURL: "https:/api.openweathermap.org/data/2.5"
       })
         .then(response => {
-          console.log(response);
           return response;
         })
         .then(response => {
@@ -113,6 +113,7 @@ export default new Vuex.Store({
         });
     },
     async getOneDayDataID({ commit }, city) {
+      commit("itemHasErrored", false);
       commit("itemLoading", { homeLoading: true });
       axios({
         url: `${oneDayCitySeveralID}${city}${metric}${apiKey}`,
@@ -135,6 +136,7 @@ export default new Vuex.Store({
     },
     async getSeveralIDData({ commit }, cityIDs) {
       commit("itemLoading", { homeLoading: true });
+      commit("itemHasErrored", false);
       axios(
         `https:/api.openweathermap.org/data/2.5/${oneDayCitySeveralID}${cityIDs}${metric}${apiKey}`
       )
@@ -154,6 +156,7 @@ export default new Vuex.Store({
         });
     },
     async getFiveDaysForecast({ commit }, cityID) {
+      commit("itemHasErrored", false);
       commit("itemLoading", { fivedayForecastLoading: true });
       axios
         .get(`${forecastFiveDaysAPI}${cityID}${metric}${apiKey}`)
@@ -173,6 +176,7 @@ export default new Vuex.Store({
         });
     },
     async getTenDaysForecast({ commit }, cityID) {
+      commit("itemHasErrored", false);
       commit("itemLoading", { tenDaysForecastLoading: true });
       axios
         .get(`${forecastTenDaysAPI}${cityID}${metric}${apiKey}&cnt=10`)

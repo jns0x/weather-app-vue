@@ -2,7 +2,9 @@
   <div>
     <h2>Watching list</h2>
     <div v-if="getWatchListData.length">
-      <weather-list-item/>
+      <transition name="slide">
+        <weather-list-item/>
+      </transition>
     </div>
   </div>
 </template>
@@ -41,6 +43,16 @@ export default {
  <style lang="scss">
 @import "../styles/variables";
 @import "../styles/mixins";
+.slide-leave-active,
+.slide-enter-active {
+  transition: 1s;
+}
+.slide-enter {
+  transform: translate(100%, 0);
+}
+.slide-leave-to {
+  transform: translate(-100%, 0);
+}
 h2 {
   @include font-size(1.5);
 }

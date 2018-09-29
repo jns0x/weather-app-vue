@@ -40,11 +40,6 @@ export default {
     errored() {
       return this.$store.state.itemErrored;
     }
-  },
-  methods: {
-    createID() {
-      return uuidv4();
-    }
   }
 };
 </script>

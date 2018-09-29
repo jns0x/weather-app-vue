@@ -8,7 +8,6 @@
 
 <script>
 import VueGoogleAutocomplete from "vue-google-autocomplete";
-import store from "../store";
 export default {
   name: "Home",
   components: {
@@ -19,7 +18,7 @@ export default {
     getAddressData(city) {
       this.$store.dispatch("getOneDayData", city);
     },
-    updateData(addressData, placeResultData, id) {
+    updateData(addressData, placeResultData) {
       this.getAddressData(placeResultData.name);
     }
   }

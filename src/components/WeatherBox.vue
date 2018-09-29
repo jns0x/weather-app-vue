@@ -1,5 +1,6 @@
 <template>
   <div class="weather-box__wrapper">
+
     <div class="weather-box">
       <fav-button class="favBtn" :cityID="weather.id" />
       <!-- <round-button class="round-btn" @addToWatchList="addToWatchList" /> -->
@@ -23,10 +24,17 @@
           <p class="weather-desc">visibility: {{ weather.visibility }} m</p>
         </div>
       </div>
+      <default-button @moreDetails="moreDetails" :label="buttonLabelControl" />
     </div>
     <!-- <default-button @moreDetails="moreDetails" :label="'Add to watchlist'" /> -->
-    <DetailsPanel v-if="detailsShow" />
-    <default-button @moreDetails="moreDetails" :label="buttonLabelControl" />
+
+    <div style="overflow: hidden;">
+      <transition name="slide-fade">
+        <DetailsPanel v-if="detailsShow" />
+      </transition>
+
+    </div>
+
   </div>
 </template>
 
@@ -66,6 +74,10 @@ export default {
     }
   },
   methods: {
+    beforeEnter: function(el) {
+      el.style.opacity = 0;
+      el.style.height = 0;
+    },
     addToWatchList() {
       const idNum = this.weather.id;
       this.$store.dispatch("addToWatchList", idNum);
@@ -88,6 +100,19 @@ export default {
 @import "../styles/variables";
 @import "../styles/mixins";
 
+//#####transitions
+.slide-fade-enter-active {
+  transition: all 0.5s ease-in-out;
+}
+.slide-fade-leave-active {
+  transition: all 0.5s ease-in-out;
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateY(-100%);
+}
+
+//#####
 .weather-box__wrapper {
   display: flex;
   flex-direction: column;
