@@ -14,7 +14,7 @@
       </div>
           <div class="weather-watch__temp">
             <div class="weather-watch-temp">
-              {{weather.main.temp}}
+              {{Math.floor(weather.main.temp *10)/10}}
               <sup>o</sup>
             </div>
             <img class="icon" v-bind:src="`https://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
