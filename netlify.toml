@@ -6,9 +6,3 @@
 [redirects.headers]
     X-From = "Netlify"
     X-Api-Key = "8496070a6ed3bd27bd80c6c4595509b1"
-# The following redirect is intended for use with most SPA's that handles routing internally.
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  force = true # Ensure that we always redirect
