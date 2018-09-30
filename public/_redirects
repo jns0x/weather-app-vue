@@ -1,2 +1,2 @@
-/watching /
-*/api.openweathermap.org/* https://api.openweathermap.org/:splat 200
+/watching /watching
+/api.openweathermap.org/* https://api.openweathermap.org/:splat 200
