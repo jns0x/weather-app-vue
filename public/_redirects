@@ -1,2 +1,2 @@
-/watching /watching
+/* /index.html 200
 /api.openweathermap.org/* https://api.openweathermap.org/:splat 200
