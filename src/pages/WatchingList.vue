@@ -1,11 +1,13 @@
 <template>
   <div>
     <h2>Watching list</h2>
-    <div v-if="getWatchListData.length">
-      <transition name="slide">
-        <weather-list-item/>
-      </transition>
-    </div>
+    <transition name="resize">
+      <div v-if="getWatchListData.length">
+        <!-- <transition name="slide"> -->
+        <weather-list-item v-for="weather in getWatchListData" :key="weather.id" :weather="weather" />
+        <!-- </transition> -->
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -39,15 +41,15 @@ export default {
  <style lang="scss">
 @import "../styles/variables";
 @import "../styles/mixins";
-.slide-leave-active,
-.slide-enter-active {
+.resize-leave-active,
+.resize-enter-active {
   transition: 1s;
 }
-.slide-enter {
-  transform: translate(100%, 0);
+.resize-enter {
+  height: 100%;
 }
-.slide-leave-to {
-  transform: translate(-100%, 0);
+.resize-leave-to {
+  height: 100%;
 }
 h2 {
   @include font-size(1.5);

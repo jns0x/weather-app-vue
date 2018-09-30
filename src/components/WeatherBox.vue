@@ -6,36 +6,36 @@
       <!-- <round-button class="round-btn" @addToWatchList="addToWatchList" /> -->
       <div class="weather__city">{{ weather.name }}, {{weather.sys.country}}, {{converTime(weather.dt)}} </div>
       <div class="group">
-        <div class="weather__temp">{{ weather.main.temp }}
+        <div class="weather__temp">{{ Math.floor(weather.main.temp*10)/10 }}
           <sup class="unit">o</sup>
         </div>
         <img class="icon" v-bind:src="`https://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
       </div>
-      <p class="weather-desc">{{ weather.weather[0].description }}</p>
-      <div class="weather-desc__wrapper">
-        <div class="weather-desc__rowOne">
-          <p class="weather-desc">humidity: {{ weather.main.humidity }}</p>
-          <p class="weather-desc">pressure: {{ weather.main.pressure }} hpa</p>
-          <p class="weather-desc">wind: {{ weather.wind.speed }} km/h</p>
+        <p class="weather-desc">{{ weather.weather[0].description }}</p>
+        <div class="weather-desc__wrapper">
+          <div class="weather-desc__rowOne">
+            <p class="weather-desc">humidity: {{ weather.main.humidity }}</p>
+            <p class="weather-desc">pressure: {{ weather.main.pressure }} hpa</p>
+            <p class="weather-desc">wind: {{ weather.wind.speed }} km/h</p>
+          </div>
+          <div class="weather-desc__rowTwo">
+            <p class="weather-desc">sunrise: {{ converTime(weather.sys.sunrise) }}</p>
+            <p class="weather-desc">sunset: {{ converTime(weather.sys.sunset) }}</p>
+            <p class="weather-desc">visibility: {{ weather.visibility }} m</p>
+          </div>
         </div>
-        <div class="weather-desc__rowTwo">
-          <p class="weather-desc">sunrise: {{ converTime(weather.sys.sunrise) }}</p>
-          <p class="weather-desc">sunset: {{ converTime(weather.sys.sunset) }}</p>
-          <p class="weather-desc">visibility: {{ weather.visibility }} m</p>
-        </div>
+        <default-button @moreDetails="moreDetails" :label="buttonLabelControl" />
       </div>
-      <default-button @moreDetails="moreDetails" :label="buttonLabelControl" />
+      <!-- <default-button @moreDetails="moreDetails" :label="'Add to watchlist'" /> -->
+
+      <div style="overflow: hidden;">
+        <transition name="slide-fade">
+          <DetailsPanel v-if="detailsShow" />
+        </transition>
+
+      </div>
+
     </div>
-    <!-- <default-button @moreDetails="moreDetails" :label="'Add to watchlist'" /> -->
-
-    <div style="overflow: hidden;">
-      <transition name="slide-fade">
-        <DetailsPanel v-if="detailsShow" />
-      </transition>
-
-    </div>
-
-  </div>
 </template>
 
 <script>
