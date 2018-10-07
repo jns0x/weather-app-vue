@@ -24,16 +24,19 @@
             <p class="weather-desc">visibility: {{ weather.visibility }} m</p>
           </div>
         </div>
-        <default-button @moreDetails="moreDetails" :label="buttonLabelControl" />
+
       </div>
       <!-- <default-button @moreDetails="moreDetails" :label="'Add to watchlist'" /> -->
 
-      <div style="overflow: hidden;">
-        <transition name="slide-fade">
-          <DetailsPanel v-if="detailsShow" />
-        </transition>
+      <!-- <div style="overflow: hidden;"> -->
+      <!-- <transition name="slide-fade"> -->
+      <transition-expand>
+        <DetailsPanel v-if="detailsShow" :cityID="weather.id" />
+      </transition-expand>
+      <default-button @moreDetails="moreDetails" :label="buttonLabelControl" />
+      <!-- </transition> -->
 
-      </div>
+      <!-- </div> -->
 
     </div>
 </template>
@@ -43,6 +46,7 @@ import RoundButton from "../atoms/RoundButton";
 import DefaultButton from "../atoms/DefaultButton";
 import DetailsPanel from "./DetailsPanel";
 import FavButton from "../atoms/FavButton";
+import TransitionExpand from "./TransitionExpand";
 import { convertUnixTime } from "../helpers";
 export default {
   name: "WeatherBox",
@@ -50,7 +54,8 @@ export default {
     RoundButton,
     DefaultButton,
     DetailsPanel,
-    FavButton
+    FavButton,
+    TransitionExpand
   },
   data() {
     return {

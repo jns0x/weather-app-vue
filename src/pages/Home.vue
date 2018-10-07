@@ -2,15 +2,19 @@
   <div class="home--wrapper">
     <RefreshBtn class="btn--refresh" v-if="getWeather" />
     <SearchBar />
-    <Loading v-if="loading" :className="'tall'" />
-    <ItemErrored v-if="errored" />
-    <!-- <Loading :loading="loading"  :className="'tall'"/> -->
-    <!-- <template :loading="loading">Loading...</template> -->
-    <!-- <template v-if="!loading.homeLoading"> -->
-    <template v-if="getWeather && !errored && !loading">
+    <transition name="fade">
+      <Loading v-if="loading" :className="'tall'" />
+      <ItemErrored v-if="errored" />
+      <!-- <Loading :loading="loading"  :className="'tall'"/> -->
+      <!-- <template :loading="loading">Loading...</template> -->
+      <!-- <template v-if="!loading.homeLoading"> -->
 
-      <WeatherBox :weather="getWeather"></WeatherBox>
-    </template>
+      <template v-if="getWeather && !errored && !loading">
+
+        <WeatherBox :weather="getWeather"></WeatherBox>
+
+      </template>
+    </transition>
     <!-- </template> -->
   </div>
 </template>

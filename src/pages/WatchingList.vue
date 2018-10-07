@@ -2,23 +2,34 @@
 
   <div>
     <h2>Watching list</h2>
+    <!-- <transition name="fade"> -->
     <Loading v-if="loading" :className="'tall'" />
-    <div v-if="getWatchListData.length">
-      <transition-group name="weather-list" tag="div">
-        <weather-list-item v-for="weather in getWatchListData" :key="weather.id" :weather="weather" />
-      </transition-group>
+    <!-- </transition> -->
+
+    <div v-if="!loading">
+      <transition name="fade">
+        <div v-if="getWatchListData.length">
+
+          <transition-group name="weather-list" tag="div">
+            <weather-list-item-2 v-for="weather in getWatchListData" :key="weather.id" :weather="weather" />
+          </transition-group>
+
+        </div>
+      </transition>
     </div>
+
   </div>
 
 </template>
 
 <script>
 import WeatherListItem from "../components/WeatherListItem";
+import WeatherListItem2 from "../components/WeatherListItem2";
 import { setToLocalStorage, getFromLocalStorage } from "../helpers";
 import Loading from "../components/Loading";
 export default {
   name: "WatchingList",
-  components: { WeatherListItem, Loading },
+  components: { WeatherListItem, Loading, WeatherListItem2 },
   data() {
     return {};
   },
@@ -34,6 +45,9 @@ export default {
     },
     loading() {
       return this.$store.state.loading.homeLoading;
+    },
+    delayLoad() {
+      setTimeout()({}), 500;
     }
   },
   methods: {
@@ -56,6 +70,16 @@ export default {
   opacity: 0;
   transform: translateX(100%);
   transition: all 1s;
+}
+.fade-ednter-to {
+  opacity: 1;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 
 h2 {

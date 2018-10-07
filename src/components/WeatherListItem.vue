@@ -1,8 +1,7 @@
 <template>
   <!-- <transition name="slide"> -->
-  <div class="weather-watch__wrapper">
-    <div class="weather-watch">
-      <!-- <div class="weather-watch" v-for="weather in getWatchListData" :key="weather.id"> -->
+  <!-- <div class="weather-watch__wrapper">
+    <div class="weather-watch" v-on:click="selectWeather">
       <div class="weather-watch__details">
         <div class="weather-watch-title">
           {{weather.name}}, {{weather.sys.country}}, {{converTime(weather.dt)}}
@@ -21,11 +20,21 @@
       </div>
           <fav-button class="fav-position" :cityID="weather.id" />
         </div>
-      </div>
-      <!-- </transition> -->
+      </div> -->
+  <div class="animate">
+    <div v-if="compactView">
+      <WeatherListItemCompact :weather="weather" v-bind="{selectWeather}" />
+    </div>
+    <div v-if="!compactView">
+      <WeatherBox :weather="weather" v-bind="{selectWeather}" />
+    </div>
+  </div>
+  <!-- </transition> -->
 </template>
 <script>
 import FavButton from "../atoms/FavButton";
+// import WeatherListItemCompact from "./WeatherListItemCompact";
+import WeatherBox from "./WeatherBox";
 import { convertUnixTime, getFromLocalStorage } from "../helpers";
 export default {
   name: "WeatherListItem",
@@ -34,7 +43,12 @@ export default {
       type: Object
     }
   },
-  components: { FavButton },
+  data() {
+    return {
+      compactView: true
+    };
+  },
+  components: { FavButton, WeatherBox },
   computed: {
     getWatchListData() {
       return this.$store.state.oneDayForecastDataSeveralID;
@@ -43,6 +57,10 @@ export default {
   methods: {
     converTime(unixTime) {
       return convertUnixTime(unixTime);
+    },
+    selectWeather() {
+      console.log("cos");
+      this.compactView = !this.compactView;
     }
   }
 };
@@ -50,44 +68,48 @@ export default {
 <style lang="scss">
 @import "../styles/variables";
 @import "../styles/mixins";
-.slide-leave-active,
-.slide-enter-active {
-  transition: 1s;
-}
-.slide-enter {
-  transform: translate(0, 0);
-}
-.slide-leave-to {
-  transform: translate(100%, 0);
+// .slide-leave-active,
+// .slide-enter-active {
+//   transition: 1s;
+// }
+// .slide-enter {
+//   transform: translate(0, 0);
+// }
+// .slide-leave-to {
+//   transform: translate(100%, 0);
+// }
+.animate {
+  transition: all 2s;
 }
 
-.weather-watch__wrapper {
-  @extend %center-all;
-  display: flex;
-  flex-wrap: wrap;
-  transition: all 2s;
-  .weather-watch {
-    border: 0.125rem solid white;
-    border-radius: 0.5rem;
-    width: 95%;
-    margin-bottom: 0.25rem;
-    display: flex;
-    padding: 0.25rem;
-    @extend %center-all;
-    justify-content: space-between;
-    .fav-position {
-      width: 2rem;
-    }
-    .weather-watch__details {
-      max-width: 40%;
-      margin: 0.5rem;
-      text-align: left;
-    }
-    .weather-watch__temp {
-      @extend %center-all;
-    }
-  }
-}
+// .weather-watch__wrapper {
+//   @extend %center-all;
+//   display: flex;
+//   flex-wrap: wrap;
+//   transition: all 2s;
+//   .weather-watch {
+//     border: 0.125rem solid white;
+//     border-radius: 0.5rem;
+//     width: 95%;
+//     margin-bottom: 0.25rem;
+//     display: flex;
+//     padding: 0.25rem;
+//     @extend %center-all;
+//     justify-content: space-between;
+//     cursor: pointer;
+//     .fav-position {
+//       width: 2rem;
+//     }
+//     .weather-watch__details {
+//       max-width: 40%;
+//       margin: 0.5rem;
+//       text-align: left;
+//     }
+//     .weather-watch__temp {
+//       @extend %center-all;
+//     }
+//   }
+// }
 </style>
 
 
