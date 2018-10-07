@@ -1,28 +1,28 @@
 <template>
-  <transition name="slide">
-    <div class="weather-watch__wrapper">
-      <div class="weather-watch">
-        <!-- <div class="weather-watch" v-for="weather in getWatchListData" :key="weather.id"> -->
-        <div class="weather-watch__details">
-          <div class="weather-watch-title">
-            {{weather.name}}, {{weather.sys.country}}, {{converTime(weather.dt)}}
-          </div>
-          <div class="weather-watch-desc">
-            {{ weather.weather[0].description }}
-          </div>
-          humidity: {{weather.main.humidity}} <br>pressure: {{weather.main.pressure}}
-      </div>
-          <div class="weather-watch__temp">
-            <div class="weather-watch-temp">
-              {{Math.floor(weather.main.temp *10)/10}}
-              <sup>o</sup>
-            </div>
-            <img class="icon" v-bind:src="`https://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
-      </div>
-            <fav-button class="fav-position" :cityID="weather.id" />
-          </div>
+  <!-- <transition name="slide"> -->
+  <div class="weather-watch__wrapper">
+    <div class="weather-watch">
+      <!-- <div class="weather-watch" v-for="weather in getWatchListData" :key="weather.id"> -->
+      <div class="weather-watch__details">
+        <div class="weather-watch-title">
+          {{weather.name}}, {{weather.sys.country}}, {{converTime(weather.dt)}}
         </div>
-  </transition>
+        <div class="weather-watch-desc">
+          {{ weather.weather[0].description }}
+        </div>
+        humidity: {{weather.main.humidity}} <br>pressure: {{weather.main.pressure}}
+      </div>
+        <div class="weather-watch__temp">
+          <div class="weather-watch-temp">
+            {{Math.floor(weather.main.temp *10)/10}}
+            <sup>o</sup>
+          </div>
+          <img class="icon" v-bind:src="`https://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
+      </div>
+          <fav-button class="fav-position" :cityID="weather.id" />
+        </div>
+      </div>
+      <!-- </transition> -->
 </template>
 <script>
 import FavButton from "../atoms/FavButton";
@@ -65,6 +65,7 @@ export default {
   @extend %center-all;
   display: flex;
   flex-wrap: wrap;
+  transition: all 2s;
   .weather-watch {
     border: 0.125rem solid white;
     border-radius: 0.5rem;

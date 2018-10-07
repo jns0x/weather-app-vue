@@ -19,7 +19,8 @@ export default new Vuex.Store({
     loading: {
       homeLoading: false,
       fivedayForecastLoading: false,
-      tenDaysForecastLoading: false
+      tenDaysForecastLoading: false,
+      watchListLoading: false
     },
     itemErrored: false,
     menuToggle: false,
@@ -29,7 +30,7 @@ export default new Vuex.Store({
     oneDayForecastDataSeveralID: "",
     watchList: []
 
-    // [759734, 756135, 759734, 756135, 759734, 756135]
+    // [756135,3094802,6167865,5350937,7872915,5405228,3979770,4776222,4942618,5746545,672171,4705349,2653822,676530,3104324]
   },
   mutations: {
     initialiseStoreFromSLocaltorage(state) {

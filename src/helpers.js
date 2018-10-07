@@ -1,6 +1,8 @@
 export function convertUnixTime(unixTime) {
   const convertedTime = new Date(unixTime * 1000);
-  return `${convertedTime.getHours()}:${convertedTime.getMinutes()}`;
+  return `${convertedTime.getHours()}:${
+    convertedTime.getMinutes() === 0 ? "00" : convertedTime.getMinutes()
+  }`;
 }
 export function convertUnixTimeToWeekDay(unixTime) {
   const weekDaysArr = [

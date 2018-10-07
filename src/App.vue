@@ -1,23 +1,30 @@
 <template>
   <div id="app">
-    <Navigation/>
-    <!-- <transition :name="transitionName"> -->
-    <transition enter-active-class="router-anim-enter-active" leave-active-class="router-anim-leave-active">
-      <!-- <transition enter-active-class="animated fadeInRight" leave-active-class="animated fadeOutLeft"> -->
-      <router-view/>
+    <Navigation />
+    <transition :name="transitionName" mode="out-in">
+      <router-view class="child-view" />
     </transition>
   </div>
 </template>
 <script>
-// enter-active-class="animated fadeOutRight" leave-active-class="animated fadeOutLeft"
-
-// import HelloWorld from "./components/HelloWorld.vue";
 import Navigation from "./components/Navigation";
 import "normalize.css";
 import "animate.css";
 
 export default {
-  components: { Navigation }
+  components: { Navigation },
+  data() {
+    return {
+      transitionName: "slide-left"
+    };
+  },
+  watch: {
+    $route(to, from) {
+      const toDepth = to.path.split("/").filter(e => Boolean(e)).length;
+      const fromDepth = from.path.split("/").filter(e => Boolean(e)).length;
+      this.transitionName = toDepth < fromDepth ? "slide-right" : "slide-left";
+    }
+  }
 };
 </script>
 
@@ -54,35 +61,19 @@ html {
     font-weight: 900;
   }
 }
-.router-anim-enter-active {
-  animation: coming 1s;
+.slide-left-enter,
+.slide-right-leave-active {
+  opacity: 0;
+  -webkit-transform: translate(50%, 0);
+  transform: translate(50%, 0);
 }
-.router-anim-leave-active {
-  animation: going 1s;
+.slide-left-leave-active,
+.slide-right-enter {
+  opacity: 0;
+  -webkit-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
 }
-
-@keyframes going {
-  from {
-    transform: translateX(0);
-    opacity: 1;
-    position: absolute;
-  }
-  to {
-    transform: translateX(100vw);
-    opacity: 0;
-    position: absolute;
-  }
-}
-@keyframes coming {
-  from {
-    transform: translateX(-100vw);
-    opacity: 0;
-    position: absolute;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-    position: absolute;
-  }
+.child-view {
+  transition: all 500ms ease-in-out;
 }
 </style>

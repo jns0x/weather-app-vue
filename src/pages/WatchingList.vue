@@ -1,22 +1,24 @@
 <template>
+
   <div>
     <h2>Watching list</h2>
-    <transition name="resize">
-      <div v-if="getWatchListData.length">
-        <!-- <transition name="slide"> -->
+    <Loading v-if="loading" :className="'tall'" />
+    <div v-if="getWatchListData.length">
+      <transition-group name="weather-list" tag="div">
         <weather-list-item v-for="weather in getWatchListData" :key="weather.id" :weather="weather" />
-        <!-- </transition> -->
-      </div>
-    </transition>
+      </transition-group>
+    </div>
   </div>
+
 </template>
 
 <script>
 import WeatherListItem from "../components/WeatherListItem";
 import { setToLocalStorage, getFromLocalStorage } from "../helpers";
+import Loading from "../components/Loading";
 export default {
   name: "WatchingList",
-  components: { WeatherListItem },
+  components: { WeatherListItem, Loading },
   data() {
     return {};
   },
@@ -29,6 +31,9 @@ export default {
   computed: {
     getWatchListData() {
       return this.$store.state.oneDayForecastDataSeveralID;
+    },
+    loading() {
+      return this.$store.state.loading.homeLoading;
     }
   },
   methods: {
@@ -41,16 +46,18 @@ export default {
  <style lang="scss">
 @import "../styles/variables";
 @import "../styles/mixins";
-.resize-leave-active,
-.resize-enter-active {
-  transition: 1s;
+
+.weather-list-leave-active {
+  width: 100%;
+  position: absolute;
 }
-.resize-enter {
-  height: 100%;
+.weather-list-enter,
+.weather-list-leave-to {
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 1s;
 }
-.resize-leave-to {
-  height: 100%;
-}
+
 h2 {
   @include font-size(1.5);
 }
