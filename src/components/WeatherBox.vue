@@ -24,20 +24,15 @@
             <p class="weather-desc">visibility: {{ weather.visibility }} m</p>
           </div>
         </div>
-
       </div>
-      <!-- <default-button @moreDetails="moreDetails" :label="'Add to watchlist'" /> -->
-
-      <!-- <div style="overflow: hidden;"> -->
-      <!-- <transition name="slide-fade"> -->
       <transition-expand>
+        <!-- <div style="overflow: none;"> -->
+        <!-- <transition name="fadeHeight"> -->
         <DetailsPanel v-if="detailsShow" :cityID="weather.id" />
+        <!-- </transition> -->
+        <!-- </div> -->
       </transition-expand>
-      <default-button @moreDetails="moreDetails" :label="buttonLabelControl" />
-      <!-- </transition> -->
-
-      <!-- </div> -->
-
+      <default-button @moreDetails="moreDetails" />
     </div>
 </template>
 
@@ -69,15 +64,6 @@ export default {
       type: Object
     }
   },
-  computed: {
-    buttonLabelControl() {
-      if (this.detailsShow) {
-        return "Hide details";
-      } else {
-        return "Show details";
-      }
-    }
-  },
   methods: {
     beforeEnter: function(el) {
       el.style.opacity = 0;
@@ -105,19 +91,17 @@ export default {
 @import "../styles/variables";
 @import "../styles/mixins";
 
-//#####transitions
-.slide-fade-enter-active {
-  transition: all 0.5s ease-in-out;
+.fadeHeight-enter-active,
+.fadeHeight-leave-active {
+  transition: all 1s;
+  max-height: 400px;
 }
-.slide-fade-leave-active {
-  transition: all 0.5s ease-in-out;
-}
-.slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active below version 2.1.8 */ {
-  transform: translateY(-100%);
+.fadeHeight-enter,
+.fadeHeight-leave-to {
+  opacity: 0;
+  max-height: 0px;
 }
 
-//#####
 .weather-box__wrapper {
   display: flex;
   flex-direction: column;
@@ -127,22 +111,16 @@ export default {
 
   .weather-box {
     margin-top: 0.5rem;
-    // border: 1px solid white;
-    // width: 100%;
     height: auto;
     width: 95vw;
     @extend %center-all;
     flex-direction: column;
     position: relative;
-
     .favBtn {
       position: absolute;
       top: 3rem;
-      // right: 2rem;
       right: 0.1rem;
       @include custom(740px) {
-        // right: calc(740px -3rem);
-        // position: relative;
         right: 20%;
       }
     }

@@ -9,11 +9,11 @@
     <div v-if="!loading">
       <transition name="fade">
         <div v-if="getWatchListData.length">
-
+          <!-- <transition-expand> -->
           <transition-group name="weather-list" tag="div">
             <weather-list-item-2 v-for="weather in getWatchListData" :key="weather.id" :weather="weather" />
           </transition-group>
-
+          <!-- </transition-expand> -->
         </div>
       </transition>
     </div>
@@ -25,11 +25,12 @@
 <script>
 import WeatherListItem from "../components/WeatherListItem";
 import WeatherListItem2 from "../components/WeatherListItem2";
+import TransitionExpand from "../components/TransitionExpand";
 import { setToLocalStorage, getFromLocalStorage } from "../helpers";
 import Loading from "../components/Loading";
 export default {
   name: "WatchingList",
-  components: { WeatherListItem, Loading, WeatherListItem2 },
+  components: { WeatherListItem, Loading, WeatherListItem2, TransitionExpand },
   data() {
     return {};
   },

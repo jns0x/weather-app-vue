@@ -20,25 +20,30 @@
       </div>
             <fav-button class="fav-position" :cityID="weather.id" />
           </div>
-          <DetailsPanel v-if="detailsShow" :cityID="weather.id" />
+          <transition-expand>
+            <DetailsPanel v-if="detailsShow" :cityID="weather.id" />
+          </transition-expand>
         </div>
       </div>
 </template>
 <script>
 import FavButton from "../atoms/FavButton";
-// import WeatherListItemCompact from "./WeatherListItemCompact";
-// import WeatherBox from "./WeatherBox";
-
-import { convertUnixTime, getFromLocalStorage } from "../helpers";
+import smoothReflow from "vue-smooth-reflow";
 import DetailsPanel from "./DetailsPanel";
+import TransitionExpand from "./TransitionExpand";
+import { convertUnixTime, getFromLocalStorage } from "../helpers";
 export default {
   name: "WeatherListItem2",
-  components: { FavButton, DetailsPanel },
+  components: { FavButton, DetailsPanel, TransitionExpand },
+  // mixins: [smoothReflow],
   props: {
     weather: {
       type: Object
     }
   },
+  // mounted() {
+  //   this.$smoothReflow();
+  // },
   data() {
     return {
       detailsShow: false
@@ -57,7 +62,6 @@ export default {
       this.detailsShow = !this.detailsShow;
       if (this.detailsShow) {
         const idNum = this.weather.id;
-        console.log(idNum);
         this.$store.dispatch("getFiveDaysForecast", idNum);
         this.$store.dispatch("getTenDaysForecast", idNum);
       }
@@ -68,31 +72,12 @@ export default {
 <style lang="scss">
 @import "../styles/variables";
 @import "../styles/mixins";
-// .slide-leave-active,
-// .slide-enter-active {
-//   transition: 1s;
-// }
-// .slide-enter {
-//   transform: translate(0, 0);
-// }
-// .slide-leave-to {
-//   transform: translate(100%, 0);
-// }
-// .animate {
-//   transition: all 2s;
-// }
-
-// .weather-watch__wrapper {
-//   transition: all 2s;
-// }
 
 .weather-watch__wrapper {
   @extend %center-all;
   display: flex;
   flex-wrap: wrap;
   transition: all 2s;
-  // .weather-compact-group {
-  //   border: 0.125rem solid white;
   .weather-watch {
     border: 0.125rem solid white;
     border-radius: 0.5rem;
@@ -101,7 +86,6 @@ export default {
     display: flex;
     padding: 0.25rem;
     @extend %center-all;
-    // justify-content: space-between;
     flex-direction: column;
     cursor: pointer;
     .weather-compact-group {
@@ -124,13 +108,3 @@ export default {
   }
 }
 </style>
-
-
- <!-- <div class="animate">
-          <div v-if="compactView">
-            <WeatherListItemCompact :weather="weather" v-bind="{selectWeather}" />
-          </div>
-          <div v-if="!compactView">
-            <WeatherBox :weather="weather" v-bind="{selectWeather}" />
-          </div>
-        </div> -->
