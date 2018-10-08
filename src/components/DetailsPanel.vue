@@ -1,42 +1,45 @@
 <template>
   <!-- <transition name="expand" tag="div"> -->
-  <!-- <transition-expand> -->
+
   <div>
-    <Loading v-if="loading1 || loading2" style="position: absolute;" />
+    <Loading v-if="loading1 || loading2" style="height: 400px;" />
     <ItemErrored v-if="errored" />
     <!-- <template v-if="!loading"> -->
     <div v-if="fiveDaysForecast && tenDaysForecast && !loading1 && !errored">
       <ItemErrored v-if="errored" />
-      <div class="details-wrapper">
-        <div class="details__row-days">
-          <div class="details__column" v-for="weather in fiveDaysForecast" :key="weather.dt">
-            <div class="details__column-time">{{ weather.dt_txt.split(" ")[1].substring(0,5) }}</div>
-            <img class="icon" v-bind:src="`https://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
-            <div class="details__column-temp">{{ Math.floor(weather.main.temp *10)/10 }}
-              <sup>o</sup>
-            </div>
-          </div>
-        </div>
-        <!-- <Loading v-if="loading2" :className="'details'" /> -->
-        <!-- <ItemErrored v-if="errored" /> -->
-        <!-- <div v-if="tenDaysForecast && !loading2 && !errored"> -->
-        <!-- <div v-if="tenDaysForecast"> -->
-        <div class="details__rows">
-          <div class="details__rows-row" v-for="weather in tenDaysForecast" :key="weather.dt*10">
-            <div class="details__rows-row-day">{{ getWeekDay(weather.dt) }}</div>
-            <img class="icon" v-bind:src="`https://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
-            <div class="details__column-temps">
-              <div class="details__column-temp temp-day">{{ Math.floor(weather.temp.day *10)/10 }}
-                <sup>o</sup>
-              </div>
-              <div class="details__column-temp temp-night">{{ Math.floor(weather.temp.night *10)/10 }}
+      <transition-expand>
+        <div class="details-wrapper">
+          <div class="details__row-days">
+            <div class="details__column" v-for="weather in fiveDaysForecast" :key="weather.dt">
+              <div class="details__column-time">{{ weather.dt_txt.split(" ")[1].substring(0,5) }}</div>
+              <img class="icon" v-bind:src="`https://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
+              <div class="details__column-temp">{{ Math.floor(weather.main.temp *10)/10 }}
                 <sup>o</sup>
               </div>
             </div>
-            <!-- </div> -->
+          </div>
+          <!-- <Loading v-if="loading2" :className="'details'" /> -->
+          <!-- <ItemErrored v-if="errored" /> -->
+          <!-- <div v-if="tenDaysForecast && !loading2 && !errored"> -->
+          <!-- <div v-if="tenDaysForecast"> -->
+
+          <div class="details__rows">
+            <div class="details__rows-row" v-for="weather in tenDaysForecast" :key="weather.dt*10">
+              <div class="details__rows-row-day">{{ getWeekDay(weather.dt) }}</div>
+              <img class="icon" v-bind:src="`https://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
+              <div class="details__column-temps">
+                <div class="details__column-temp temp-day">{{ Math.floor(weather.temp.day *10)/10 }}
+                  <sup>o</sup>
+                </div>
+                <div class="details__column-temp temp-night">{{ Math.floor(weather.temp.night *10)/10 }}
+                  <sup>o</sup>
+                </div>
+              </div>
+              <!-- </div> -->
+            </div>
           </div>
         </div>
-      </div>
+      </transition-expand>
     </div>
   </div>
   <!-- </transition-expand> -->
@@ -84,6 +87,7 @@ export default {
     },
     loading1() {
       return this.$store.state.loading.fiveDaysForecastLoading;
+      // return true;
     },
     loading2() {
       return this.$store.state.loading.tenDaysForecastLoading;
