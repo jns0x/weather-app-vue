@@ -11,13 +11,6 @@ export default {
       buttonToggled: false
     };
   },
-  computed: {
-    classObject: function() {
-      return {
-        rotate: (this.buttonToggled = true)
-      };
-    }
-  },
   methods: {
     toggleRefresh() {
       this.buttonToggled = !this.buttonToggled;

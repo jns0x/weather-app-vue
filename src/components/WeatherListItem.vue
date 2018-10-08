@@ -1,8 +1,7 @@
 <template>
-  <transition name="slide">
-    <div class="weather-watch__wrapper">
-      <div class="weather-watch">
-        <!-- <div class="weather-watch" v-for="weather in getWatchListData" :key="weather.id"> -->
+  <div class="weather-watch__wrapper" ref="toScroll">
+    <div class="weather-watch">
+      <div class="weather-compact-group" v-on:click="moreDetails">
         <div class="weather-watch__details">
           <div class="weather-watch-title">
             {{weather.name}}, {{weather.sys.country}}, {{converTime(weather.dt)}}
@@ -21,20 +20,39 @@
       </div>
             <fav-button class="fav-position" :cityID="weather.id" />
           </div>
+          <!-- <transition-expand> -->
+          <div style="overflow: hidden; max-height: 650px">
+            <transition name="fadeHeight">
+              <DetailsPanel v-if="detailsShow" :cityID="weather.id" />
+            </transition>
+          </div>
+          <!-- </transition-expand> -->
         </div>
-  </transition>
+      </div>
 </template>
 <script>
 import FavButton from "../atoms/FavButton";
-import { convertUnixTime, getFromLocalStorage } from "../helpers";
+// import smoothReflow from "vue-smooth-reflow";
+import DetailsPanel from "./DetailsPanel";
+import TransitionExpand from "./TransitionExpand";
+import { convertUnixTime } from "../helpers";
 export default {
   name: "WeatherListItem",
+  components: { FavButton, DetailsPanel, TransitionExpand },
+  // mixins: [smoothReflow],
   props: {
     weather: {
       type: Object
     }
   },
-  components: { FavButton },
+  // mounted() {
+  //   this.$smoothReflow();
+  // },
+  data() {
+    return {
+      detailsShow: false
+    };
+  },
   computed: {
     getWatchListData() {
       return this.$store.state.oneDayForecastDataSeveralID;
@@ -43,6 +61,22 @@ export default {
   methods: {
     converTime(unixTime) {
       return convertUnixTime(unixTime);
+    },
+    moreDetails() {
+      this.detailsShow = !this.detailsShow;
+      if (this.detailsShow) {
+        const idNum = this.weather.id;
+        this.$store.dispatch("getFiveDaysForecast", idNum);
+        this.$store.dispatch("getTenDaysForecast", idNum);
+      }
+      // this.scrollThere();
+    },
+    scrollThere() {
+      this.$nextTick(function() {
+        console.log(this.$refs.toScroll.scrollHeight);
+        this.$refs.toScroll.scrollTop = this.$refs.toScroll.scrollHeight;
+      });
+      this.$refs.toScroll.scrollTop = this.$refs.toScroll.scrollHeight;
     }
   }
 };
@@ -50,21 +84,12 @@ export default {
 <style lang="scss">
 @import "../styles/variables";
 @import "../styles/mixins";
-.slide-leave-active,
-.slide-enter-active {
-  transition: 1s;
-}
-.slide-enter {
-  transform: translate(0, 0);
-}
-.slide-leave-to {
-  transform: translate(100%, 0);
-}
 
 .weather-watch__wrapper {
   @extend %center-all;
   display: flex;
   flex-wrap: wrap;
+  transition: all 2s;
   .weather-watch {
     border: 0.125rem solid white;
     border-radius: 0.5rem;
@@ -73,20 +98,25 @@ export default {
     display: flex;
     padding: 0.25rem;
     @extend %center-all;
-    justify-content: space-between;
-    .fav-position {
-      width: 2rem;
-    }
-    .weather-watch__details {
-      max-width: 40%;
-      margin: 0.5rem;
-      text-align: left;
-    }
-    .weather-watch__temp {
+    flex-direction: column;
+    cursor: pointer;
+    .weather-compact-group {
+      width: 95%;
+      display: flex;
       @extend %center-all;
+      justify-content: space-between;
+      .fav-position {
+        width: 2rem;
+      }
+      .weather-watch__details {
+        max-width: 40%;
+        margin: 0.5rem;
+        text-align: left;
+      }
+      .weather-watch__temp {
+        @extend %center-all;
+      }
     }
   }
 }
 </style>
-
-

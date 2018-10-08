@@ -2,15 +2,20 @@
   <div class="home--wrapper">
     <RefreshBtn class="btn--refresh" v-if="getWeather" />
     <SearchBar />
-    <Loading v-if="loading" :className="'tall'" />
+    <transition name="fade">
+      <Loading v-if="loading" :className="'tall'" style="position: absolute;" />
+    </transition>
     <ItemErrored v-if="errored" />
     <!-- <Loading :loading="loading"  :className="'tall'"/> -->
     <!-- <template :loading="loading">Loading...</template> -->
     <!-- <template v-if="!loading.homeLoading"> -->
-    <template v-if="getWeather && !errored && !loading">
+    <transition name="fade">
+      <template v-if="getWeather && !errored && !loading">
 
-      <WeatherBox :weather="getWeather"></WeatherBox>
-    </template>
+        <WeatherBox :weather="getWeather"></WeatherBox>
+
+      </template>
+    </transition>
     <!-- </template> -->
   </div>
 </template>
@@ -36,6 +41,7 @@ export default {
     },
     loading() {
       return this.$store.state.loading.homeLoading;
+      // return true;
     },
     errored() {
       return this.$store.state.itemErrored;

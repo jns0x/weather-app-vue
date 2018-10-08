@@ -19,17 +19,18 @@ export default new Vuex.Store({
     loading: {
       homeLoading: false,
       fivedayForecastLoading: false,
-      tenDaysForecastLoading: false
+      tenDaysForecastLoading: false,
+      watchListLoading: false
     },
     itemErrored: false,
     menuToggle: false,
     oneDayForecastData: "",
-    fiveDaysForecastData: "",
-    forecastTenDays: "",
+    fiveDaysForecastData: [],
+    forecastTenDays: [],
     oneDayForecastDataSeveralID: "",
     watchList: []
 
-    // [759734, 756135, 759734, 756135, 759734, 756135]
+    // [756135,3094802,6167865,5350937,7872915,5405228,3979770,4776222,4942618,5746545,672171,4705349,2653822,676530,3104324]
   },
   mutations: {
     initialiseStoreFromSLocaltorage(state) {
@@ -52,13 +53,43 @@ export default new Vuex.Store({
       state.oneDayForecastData = payload;
     },
     fiveDaysForecastData(state, payload) {
-      state.fiveDaysForecastData = {
+      const payloadID = payload.city.id;
+      // console.log(payloadID);
+      const newItem = {
         ...payload,
         list: [...payload.list.slice(0, 9)]
       };
+      // console.log(newItem);
+      // console.log(
+      //   state.fiveDaysForecastData.filter(e => e.city.id === payloadID).length
+      // );
+      if (
+        state.fiveDaysForecastData.filter(e => e.city.id === payloadID).length
+      ) {
+        state.fiveDaysForecastData.map(e => {
+          if (e.city.id === payloadID) {
+            return newItem;
+          } else {
+            return e;
+          }
+        });
+      } else {
+        state.fiveDaysForecastData.push(newItem);
+      }
     },
     setForecastTenDays(state, payload) {
-      state.forecastTenDays = payload.list;
+      const payloadID = payload.city.id;
+      if (state.forecastTenDays.filter(e => e.city.id === payloadID).length) {
+        state.forecastTenDays.map(e => {
+          if (e.city.id === payloadID) {
+            return payload;
+          } else {
+            return e;
+          }
+        });
+      } else {
+        state.forecastTenDays.push(payload);
+      }
     },
     oneDayForecastDataSeveralID(state, payload) {
       state.oneDayForecastDataSeveralID = payload.list;
