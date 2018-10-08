@@ -79,7 +79,7 @@ export default {
         e => e.city.id === this.cityID
       );
       if (tendays.length) {
-        return tendays[0].list.splice(0, 7);
+        return tendays[0].list;
       }
     },
     loading1() {

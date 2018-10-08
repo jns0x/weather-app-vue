@@ -78,17 +78,22 @@ export default new Vuex.Store({
       }
     },
     setForecastTenDays(state, payload) {
+      const sevenDays = {
+        ...payload,
+        list: [...payload.list].splice(0, 7)
+      };
+
       const payloadID = payload.city.id;
       if (state.forecastTenDays.filter(e => e.city.id === payloadID).length) {
         state.forecastTenDays.map(e => {
           if (e.city.id === payloadID) {
-            return payload;
+            return sevenDays;
           } else {
             return e;
           }
         });
       } else {
-        state.forecastTenDays.push(payload);
+        state.forecastTenDays.push(sevenDays);
       }
     },
     oneDayForecastDataSeveralID(state, payload) {
