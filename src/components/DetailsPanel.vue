@@ -2,7 +2,7 @@
   <!-- <transition name="expand" tag="div"> -->
 
   <div>
-    <Loading v-if="loading1 || loading2" style="height: 400px;" />
+    <Loading v-if="loading1 || loading2" />
     <ItemErrored v-if="errored" />
     <!-- <template v-if="!loading"> -->
     <div v-if="fiveDaysForecast && tenDaysForecast && !loading1 && !errored">
@@ -26,7 +26,7 @@
           <div class="details__rows">
             <div class="details__rows-row" v-for="weather in tenDaysForecast" :key="weather.dt*10">
               <div class="details__rows-row-day">{{ getWeekDay(weather.dt) }}</div>
-              <img class="icon" v-bind:src="`https://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
+              <img class="details__rows-row-icon" v-bind:src="`https://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
               <div class="details__column-temps">
                 <div class="details__column-temp temp-day">{{ Math.floor(weather.temp.day *10)/10 }}
                   <sup>o</sup>
@@ -49,7 +49,7 @@
 import Loading from "./Loading";
 import ItemErrored from "../components/ItemErrored";
 import TransitionExpand from "./TransitionExpand";
-import smoothReflow from "vue-smooth-reflow";
+// import smoothReflow from "vue-smooth-reflow";
 import { convertUnixTimeToWeekDay } from "../helpers";
 export default {
   // mixins: [smoothReflow],
@@ -65,9 +65,6 @@ export default {
       type: Number
     }
   },
-  // mounted() {
-  //   this.$smoothReflow();
-  // },
   computed: {
     fiveDaysForecast() {
       const fiveDays = this.$store.state.fiveDaysForecastData.filter(
@@ -82,7 +79,7 @@ export default {
         e => e.city.id === this.cityID
       );
       if (tendays.length) {
-        return tendays[0].list;
+        return tendays[0].list.splice(0, 7);
       }
     },
     loading1() {
@@ -179,6 +176,10 @@ export default {
       justify-content: space-between;
       width: 100%;
       min-height: 2.5rem;
+      .details__rows-row-day {
+        width: 30%;
+        text-align: left;
+      }
 
       .details__column-temps {
         @extend %center-all;

@@ -3,7 +3,6 @@
 
     <div class="weather-box">
       <fav-button class="favBtn" :cityID="weather.id" />
-      <!-- <round-button class="round-btn" @addToWatchList="addToWatchList" /> -->
       <div class="weather__city">{{ weather.name }}, {{weather.sys.country}}, {{converTime(weather.dt)}} </div>
       <div class="group">
         <div class="weather__temp">{{ Math.floor(weather.main.temp*10)/10 }}
@@ -25,13 +24,13 @@
           </div>
         </div>
       </div>
-      <transition-expand>
-        <!-- <div style="overflow: none;"> -->
-        <!-- <transition name="fadeHeight"> -->
-        <DetailsPanel v-if="detailsShow" :cityID="weather.id" />
-        <!-- </transition> -->
-        <!-- </div> -->
-      </transition-expand>
+      <!-- <transition-expand> -->
+      <div style="overflow: hidden; max-height: 650px">
+        <transition name="fadeHeight">
+          <DetailsPanel v-if="detailsShow" :cityID="weather.id" />
+        </transition>
+      </div>
+      <!-- </transition-expand> -->
       <default-button @moreDetails="moreDetails" />
     </div>
 </template>
@@ -40,10 +39,12 @@
 import RoundButton from "../atoms/RoundButton";
 import DefaultButton from "../atoms/DefaultButton";
 import DetailsPanel from "./DetailsPanel";
-import FavButton from "../atoms/FavButton";
 import TransitionExpand from "./TransitionExpand";
+import FavButton from "../atoms/FavButton";
+// import smoothReflow from "vue-smooth-reflow";
 import { convertUnixTime } from "../helpers";
 export default {
+  // mixins: [smoothReflow],
   name: "WeatherBox",
   components: {
     RoundButton,
@@ -58,6 +59,15 @@ export default {
       detailsShow: false
     };
   },
+  // mounted() {
+  //   this.$smoothReflow([
+  //     {
+  //       transitionEvent: {
+  //         selector: "DetailsPanel"
+  //       }
+  //     }
+  //   ]);
+  // },
 
   props: {
     weather: {
@@ -93,12 +103,12 @@ export default {
 
 .fadeHeight-enter-active,
 .fadeHeight-leave-active {
-  transition: all 1s;
-  max-height: 400px;
+  transition: all 1s ease-in-out;
+  max-height: 630px;
 }
 .fadeHeight-enter,
 .fadeHeight-leave-to {
-  opacity: 0;
+  opacity: 0.2;
   max-height: 0px;
 }
 
