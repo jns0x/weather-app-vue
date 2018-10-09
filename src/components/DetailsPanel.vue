@@ -2,44 +2,46 @@
   <!-- <transition name="expand" tag="div"> -->
 
   <div>
-    <Loading v-if="loading1 || loading2" />
+    <transition name="fadeHeightLoading">
+      <Loading class="details-loading" v-if="loading1 || loading2" />
+    </transition>
     <ItemErrored v-if="errored" />
     <!-- <template v-if="!loading"> -->
     <div v-if="fiveDaysForecast && tenDaysForecast && !loading1 && !errored">
       <ItemErrored v-if="errored" />
-      <transition-expand>
-        <div class="details-wrapper">
-          <div class="details__row-days">
-            <div class="details__column" v-for="weather in fiveDaysForecast" :key="weather.dt">
-              <div class="details__column-time">{{ weather.dt_txt.split(" ")[1].substring(0,5) }}</div>
-              <img class="icon" v-bind:src="`https://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
-              <div class="details__column-temp">{{ Math.floor(weather.main.temp *10)/10 }}
-                <sup>o</sup>
-              </div>
-            </div>
-          </div>
-          <!-- <Loading v-if="loading2" :className="'details'" /> -->
-          <!-- <ItemErrored v-if="errored" /> -->
-          <!-- <div v-if="tenDaysForecast && !loading2 && !errored"> -->
-          <!-- <div v-if="tenDaysForecast"> -->
-
-          <div class="details__rows">
-            <div class="details__rows-row" v-for="weather in tenDaysForecast" :key="weather.dt*10">
-              <div class="details__rows-row-day">{{ getWeekDay(weather.dt) }}</div>
-              <img class="details__rows-row-icon" v-bind:src="`https://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
-              <div class="details__column-temps">
-                <div class="details__column-temp temp-day">{{ Math.floor(weather.temp.day *10)/10 }}
-                  <sup>o</sup>
-                </div>
-                <div class="details__column-temp temp-night">{{ Math.floor(weather.temp.night *10)/10 }}
-                  <sup>o</sup>
-                </div>
-              </div>
-              <!-- </div> -->
+      <!-- <transition-expand> -->
+      <div class="details-wrapper">
+        <div class="details__row-days">
+          <div class="details__column" v-for="weather in fiveDaysForecast" :key="weather.dt">
+            <div class="details__column-time">{{ weather.dt_txt.split(" ")[1].substring(0,5) }}</div>
+            <img class="icon" v-bind:src="`https://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
+            <div class="details__column-temp">{{ Math.floor(weather.main.temp *10)/10 }}
+              <sup>o</sup>
             </div>
           </div>
         </div>
-      </transition-expand>
+        <!-- <Loading v-if="loading2" :className="'details'" /> -->
+        <!-- <ItemErrored v-if="errored" /> -->
+        <!-- <div v-if="tenDaysForecast && !loading2 && !errored"> -->
+        <!-- <div v-if="tenDaysForecast"> -->
+
+        <div class="details__rows">
+          <div class="details__rows-row" v-for="weather in tenDaysForecast" :key="weather.dt*10">
+            <div class="details__rows-row-day">{{ getWeekDay(weather.dt) }}</div>
+            <img class="details__rows-row-icon" v-bind:src="`https://openweathermap.org/img/w/${weather.weather[0].icon}.png`">
+            <div class="details__column-temps">
+              <div class="details__column-temp temp-day">{{ Math.floor(weather.temp.day *10)/10 }}
+                <sup>o</sup>
+              </div>
+              <div class="details__column-temp temp-night">{{ Math.floor(weather.temp.night *10)/10 }}
+                <sup>o</sup>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- </transition-expand> -->
     </div>
   </div>
   <!-- </transition-expand> -->
@@ -79,7 +81,7 @@ export default {
         e => e.city.id === this.cityID
       );
       if (tendays.length) {
-        return tendays[0];
+        return tendays[0].list;
       }
     },
     loading1() {
@@ -108,24 +110,38 @@ export default {
   display: none;
 }
 
-.expand-enter-active,
-.expand-leave-active {
-  transition-property: opacity, height;
-}
-.expand-enter,
-.expand-leave-to {
-  opacity: 0;
+.details-loading {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem;
 }
 
-// .weather-list-leave-active {
-//   width: 100%;
-//   position: absolute;
+// background: rgba($color: #8b8b8b, $alpha: 0.5);
+//   filter: blur(5px);
+
+.fadeHeight-enter-active,
+.fadeHeight-leave-active {
+  transition: all 1s ease-in-out;
+  max-height: 300px;
+}
+.fadeHeight-enter,
+.fadeHeight-leave-to {
+  opacity: 0.2;
+  max-height: 0px;
+}
+
+// .expand-enter-active,
+// .expand-leave-active {
+//   transition-property: opacity, height;
 // }
-// .weather-list-enter,
-// .weather-list-leave-to {
+// .expand-enter,
+// .expand-leave-to {
 //   opacity: 0;
-//   transform: translateX(100%);
-//   transition: all 1s;
 // }
 
 .details-wrapper {

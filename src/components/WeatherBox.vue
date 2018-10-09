@@ -104,7 +104,7 @@ export default {
 .fadeHeight-enter-active,
 .fadeHeight-leave-active {
   transition: all 1s ease-in-out;
-  max-height: 630px;
+  max-height: 600px;
 }
 .fadeHeight-enter,
 .fadeHeight-leave-to {
@@ -117,7 +117,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative;
+  // position: relative;
 
   .weather-box {
     margin-top: 0.5rem;

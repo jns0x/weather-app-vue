@@ -8,8 +8,6 @@ import {
   apiKey,
   forecastFiveDaysAPI,
   forecastTenDaysAPI,
-  defaultHeaders,
-  oneDayCitiDataAPIID,
   oneDayCitySeveralID
 } from "../config";
 
@@ -54,15 +52,10 @@ export default new Vuex.Store({
     },
     fiveDaysForecastData(state, payload) {
       const payloadID = payload.city.id;
-      // console.log(payloadID);
       const newItem = {
         ...payload,
         list: [...payload.list.slice(0, 9)]
       };
-      // console.log(newItem);
-      // console.log(
-      //   state.fiveDaysForecastData.filter(e => e.city.id === payloadID).length
-      // );
       if (
         state.fiveDaysForecastData.filter(e => e.city.id === payloadID).length
       ) {
@@ -80,9 +73,8 @@ export default new Vuex.Store({
     setForecastTenDays(state, payload) {
       const sevenDays = {
         ...payload,
-        list: [...payload.list].splice(0, 7)
+        list: [...payload.list].slice(0, 7)
       };
-
       const payloadID = payload.city.id;
       if (state.forecastTenDays.filter(e => e.city.id === payloadID).length) {
         state.forecastTenDays.map(e => {
@@ -106,7 +98,6 @@ export default new Vuex.Store({
       } else {
         const index = state.watchList.indexOf(newCityID);
         state.watchList.splice(index, 1);
-        // console.log(state.watchList);
       }
       if (state.oneDayForecastDataSeveralID.length) {
         state.oneDayForecastDataSeveralID = state.oneDayForecastDataSeveralID.filter(

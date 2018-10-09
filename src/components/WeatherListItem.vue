@@ -1,7 +1,7 @@
 <template>
   <div class="weather-watch__wrapper" ref="toScroll">
     <div class="weather-watch">
-      <div class="weather-compact-group" v-on:click="moreDetails">
+      <div class="weather-compact-group" v-on:click="moreDetails" ref="blurBG">
         <div class="weather-watch__details">
           <div class="weather-watch-title">
             {{weather.name}}, {{weather.sys.country}}, {{converTime(weather.dt)}}
@@ -21,7 +21,7 @@
             <fav-button class="fav-position" :cityID="weather.id" />
           </div>
           <!-- <transition-expand> -->
-          <div style="overflow: hidden; max-height: 650px">
+          <div style="overflow: hidden; max-height: 650px; width: 100%;">
             <transition name="fadeHeight">
               <DetailsPanel v-if="detailsShow" :cityID="weather.id" />
             </transition>
@@ -39,15 +39,11 @@ import { convertUnixTime } from "../helpers";
 export default {
   name: "WeatherListItem",
   components: { FavButton, DetailsPanel, TransitionExpand },
-  // mixins: [smoothReflow],
   props: {
     weather: {
       type: Object
     }
   },
-  // mounted() {
-  //   this.$smoothReflow();
-  // },
   data() {
     return {
       detailsShow: false
@@ -69,8 +65,11 @@ export default {
         this.$store.dispatch("getFiveDaysForecast", idNum);
         this.$store.dispatch("getTenDaysForecast", idNum);
       }
-      // this.scrollThere();
     },
+    // blurBg() {
+    //   console.log("jest dupa");
+    //   this.$ref.blurBG.style.filter = "blur(5px)";
+    // },
     scrollThere() {
       this.$nextTick(function() {
         console.log(this.$refs.toScroll.scrollHeight);
@@ -84,22 +83,29 @@ export default {
 <style lang="scss">
 @import "../styles/variables";
 @import "../styles/mixins";
+.loading-background {
+  background: rgba($color: #8b8b8b, $alpha: 0.5);
+  filter: blur(5px);
+}
 
 .weather-watch__wrapper {
   @extend %center-all;
   display: flex;
   flex-wrap: wrap;
-  transition: all 2s;
+  transition: all 1s;
+  position: relative;
   .weather-watch {
     border: 0.125rem solid white;
     border-radius: 0.5rem;
-    width: 95%;
+    width: 98%;
     margin-bottom: 0.25rem;
     display: flex;
-    padding: 0.25rem;
+    position: relative;
+    // padding: 0.25rem;
     @extend %center-all;
     flex-direction: column;
     cursor: pointer;
+
     .weather-compact-group {
       width: 95%;
       display: flex;
