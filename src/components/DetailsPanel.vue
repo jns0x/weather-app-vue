@@ -111,14 +111,6 @@ export default {
 }
 
 .details-loading {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 0.5rem;
 }
 
 // background: rgba($color: #8b8b8b, $alpha: 0.5);

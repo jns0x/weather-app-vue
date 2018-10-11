@@ -23,10 +23,14 @@ export default {
 @import "../styles/mixins";
 .loading-wrapper {
   width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  border-radius: 0.5rem;
+  left: 0;
   &.tall {
     height: 40vh;
   }
