@@ -25,7 +25,7 @@
         </div>
       </div>
       <!-- <transition-expand> -->
-      <div style="overflow: hidden; max-height: 650px">
+      <div class="box--wrapper">
         <transition name="fadeHeight">
           <DetailsPanel v-if="detailsShow" :cityID="weather.id" />
         </transition>
@@ -118,7 +118,12 @@ export default {
   justify-content: center;
   align-items: center;
   // position: relative;
-
+  .box--wrapper {
+    overflow: hidden;
+    max-height: 650px;
+    width: 95%;
+    @extend %center-all;
+  }
   .weather-box {
     margin-top: 0.5rem;
     height: auto;

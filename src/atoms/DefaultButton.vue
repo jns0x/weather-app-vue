@@ -132,6 +132,9 @@ export default {
   @extend %center-all;
   cursor: pointer;
   transition: 1s;
+  @include custom(740px) {
+    max-width: 740px;
+  }
   .green-border {
     border-top: 0.15rem solid get-color(5);
     width: 100%;

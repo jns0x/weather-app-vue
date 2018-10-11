@@ -21,7 +21,7 @@
             <fav-button class="fav-position" :cityID="weather.id" />
           </div>
           <!-- <transition-expand> -->
-          <div style="overflow: hidden; max-height: 650px; width: 100%;">
+          <div style="overflow: hidden; max-height: 650px; width: 95%;">
             <transition name="fadeHeight">
               <DetailsPanel v-if="detailsShow" :cityID="weather.id" />
             </transition>
@@ -105,7 +105,9 @@ export default {
     @extend %center-all;
     flex-direction: column;
     cursor: pointer;
-
+    @include custom(740px) {
+      max-width: 740px;
+    }
     .weather-compact-group {
       width: 95%;
       display: flex;
