@@ -150,7 +150,7 @@ export default {
     padding: 0.5rem 0 0 0;
     margin: 0.5rem 0 0 0;
     box-sizing: border-box;
-    width: 100%;
+    width: 95vw;
     overflow-x: scroll;
     @include custom(740px) {
       width: 100%;
@@ -171,7 +171,7 @@ export default {
     margin: 0.5rem 0 0 0;
     box-sizing: border-box;
     flex-direction: column;
-    width: 100%;
+    width: 95vw;
     overflow-x: scroll;
     // max-height: 35vh;
     justify-content: flex-start;

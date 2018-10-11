@@ -4,6 +4,8 @@ preview:
 
 ## https://weather-app-vue-vuex.netlify.com/
 
+\*optimized for mobile
+
 features:
 
 1. display weather for selected city:
